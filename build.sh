@@ -138,7 +138,6 @@ make --jobs=`sysctl -n hw.ncpu`
 ./generate . locale
 ./generate . mappings
 ./generate . versifications
-./generate . samplebible
 rm logbook/1*
 popd
 
