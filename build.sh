@@ -122,7 +122,7 @@ cd $IOSSOURCE
 BIBLEDITIOS=/tmp/bibledit-ios
 echo Synchronizing relevant source code to $BIBLEDITIOS
 mkdir -p $BIBLEDITIOS
-rsync --archive --delete ../lib $BIBLEDITIOS/
+rsync --archive --delete ../cloud $BIBLEDITIOS/
 rsync --archive --delete ../ios $BIBLEDITIOS/
 
 # From now on the working directory is the temporal location.
@@ -132,7 +132,7 @@ cd $BIBLEDITIOS/ios
 # The reason for this is that building them on iOS takes a lot of time during the setup phase.
 # To include pre-built data, that speeds up the setup phase of Bibledit on iOS.
 # At the end, it removes the journal entries that were logged in the process.
-pushd ../lib
+pushd ../cloud
 ./configure
 make --jobs=`sysctl -n hw.ncpu`
 ./generate . locale
@@ -142,7 +142,7 @@ rm logbook/1*
 popd
 
 # Sychronizes the libbibledit data files in the source tree to iOS and cleans them up.
-rsync -a --delete ../lib/ webroot
+rsync -a --delete ../cloud/ webroot
 pushd webroot
 ./configure
 make distclean
