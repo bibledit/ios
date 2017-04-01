@@ -42,8 +42,7 @@ NSMutableString * previousSyncState;
     
     bibledit_start_library ();
     
-    [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                     target:self selector:@selector(bibleditRunTimer:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(bibleditRunTimer:) userInfo:nil repeats:YES];
 }
 
 
@@ -141,6 +140,11 @@ NSMutableString * previousSyncState;
         }
     }
     previousSyncState = [[NSMutableString alloc] initWithString:syncState];
+
+    NSString * url = [NSString stringWithUTF8String:bibledit_get_external_url ()];
+    if (url.length != 0) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: url]];
+    }
 }
 
 
