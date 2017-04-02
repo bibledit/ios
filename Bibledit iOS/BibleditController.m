@@ -143,7 +143,7 @@ NSMutableString * previousSyncState;
 
     NSString * url = [NSString stringWithUTF8String:bibledit_get_external_url ()];
     if (url.length != 0) {
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: url]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
     }
 }
 
