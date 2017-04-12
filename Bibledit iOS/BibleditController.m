@@ -13,13 +13,12 @@
 #import "BibleditInstallation.h"
 #import "bibledit.h"
 #import <mach/mach.h>
+#import "Variables.h"
 
 
 @implementation BibleditController
 
 
-UIView * mainUIView = NULL;
-WKWebView *webview;
 NSString * homeUrl = @"http://localhost:8765";
 NSMutableString * previousSyncState;
 
@@ -48,10 +47,10 @@ NSMutableString * previousSyncState;
 
 + (void) bibleditViewHasLoaded:(UIView *)uiview
 {
-    mainUIView = uiview;
+    mainview = uiview;
     WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
-    webview = [[WKWebView alloc] initWithFrame:mainUIView.frame configuration:theConfiguration];
-    [mainUIView addSubview:webview];
+    webview = [[WKWebView alloc] initWithFrame:mainview.frame configuration:theConfiguration];
+    [mainview addSubview:webview];
     [BibleditController bibleditBrowseTo:homeUrl];
 }
 
