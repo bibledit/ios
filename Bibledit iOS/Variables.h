@@ -9,9 +9,12 @@
 #ifndef Variables_h
 #define Variables_h
 
+#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
-extern UIView * mainview;
-extern WKWebView *webview;
+
+extern UIView * ui_view;
+extern WKWebView *wk_web_view;
 
 
 #endif /* Variables_h */

@@ -12,6 +12,6 @@
 #import "Variables.h"
 
 
-UIView * mainview = NULL;
-WKWebView *webview;
+UIView * ui_view = NULL;
+WKWebView *wk_web_view;
 

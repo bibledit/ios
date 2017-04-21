@@ -21,6 +21,10 @@
 #import "BibleditPaths.h"
 #import "BibleditInstallation.h"
 #import "BibleditController.h"
+#import "Variables.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 
 @interface ViewController ()
@@ -35,6 +39,8 @@
   [super viewDidLoad];
 
   [BibleditController bibleditViewHasLoaded:self.view];
+
+  [wk_web_view setNavigationDelegate:self];
 
   [self performSelectorInBackground:@selector(installResources) withObject:nil];
 }
@@ -57,6 +63,17 @@
 - (BOOL) prefersStatusBarHidden
 {
   return YES;
+}
+
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler
+{
+  if (navigationResponse.canShowMIMEType) {
+    decisionHandler(WKNavigationResponsePolicyAllow);
+  } else {
+    [[UIApplication sharedApplication] openURL:navigationResponse.response.URL];
+    decisionHandler(WKNavigationResponsePolicyCancel);
+  }
 }
 
 

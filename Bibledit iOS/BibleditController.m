@@ -47,10 +47,10 @@ NSMutableString * previousSyncState;
 
 + (void) bibleditViewHasLoaded:(UIView *)uiview
 {
-    mainview = uiview;
+    ui_view = uiview;
     WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
-    webview = [[WKWebView alloc] initWithFrame:mainview.frame configuration:theConfiguration];
-    [mainview addSubview:webview];
+    wk_web_view = [[WKWebView alloc] initWithFrame:ui_view.frame configuration:theConfiguration];
+    [ui_view addSubview:wk_web_view];
     [BibleditController bibleditBrowseTo:homeUrl];
 }
 
@@ -65,7 +65,7 @@ NSMutableString * previousSyncState;
 + (void) bibleditEnteredForeground
 {
     bibledit_start_library ();
-    NSURL *url = [webview URL];
+    NSURL *url = [wk_web_view URL];
     NSString *path = [url absoluteString];
     NSString *bit = [path substringToIndex:21];
     BOOL equal = [bit isEqualToString:homeUrl];
@@ -84,7 +84,7 @@ NSMutableString * previousSyncState;
     // NSLog(@"To URL %@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    [webview loadRequest:urlRequest];
+    [wk_web_view loadRequest:urlRequest];
 }
 
 

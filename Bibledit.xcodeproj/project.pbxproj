@@ -30,11 +30,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CA0773801A8E80DB0061C5B7 /* develop.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = develop.txt; sourceTree = "<group>"; };
-		CA44E62B1E9E96D400925F9A /* Variables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Variables.m; sourceTree = "<group>"; };
-		CA44E62D1E9E96EA00925F9A /* Variables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Variables.h; sourceTree = "<group>"; };
+		CA0773801A8E80DB0061C5B7 /* develop.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 0; path = develop.txt; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
+		CA44E62B1E9E96D400925F9A /* Variables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Variables.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CA44E62D1E9E96EA00925F9A /* Variables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Variables.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		CA6B9C171A9906C800FAB064 /* BibleditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BibleditController.h; sourceTree = "<group>"; };
-		CA6B9C181A9906C800FAB064 /* BibleditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BibleditController.m; sourceTree = "<group>"; };
+		CA6B9C181A9906C800FAB064 /* BibleditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BibleditController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CA73236F1B257BE4003E3387 /* bibledit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bibledit.h; path = include/bibledit.h; sourceTree = SOURCE_ROOT; };
 		CA8C8A231B92D9B000E9BA18 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CA8C8A251B92D9BC00E9BA18 /* build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
@@ -204,7 +204,7 @@
 		CEA9295C19B06C9600DA3766 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Teus Benschop";
 				TargetAttributes = {
 					CEA9296319B06C9600DA3766 = {
@@ -316,7 +316,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -356,7 +356,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
