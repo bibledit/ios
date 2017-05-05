@@ -21,6 +21,7 @@
 
 NSString * homeUrl = @"http://localhost:8765";
 NSMutableString * previousSyncState;
+NSString * previousTabsState;
 
 
 + (void) bibleditAppLaunched
@@ -143,6 +144,12 @@ NSMutableString * previousSyncState;
     NSString * url = [NSString stringWithUTF8String:bibledit_get_external_url ()];
     if (url.length != 0) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
+    }
+    
+    NSString * tabsState = [NSString stringWithUTF8String:bibledit_get_pages_to_open ()];
+    if (![tabsState isEqualToString:previousTabsState]) {
+        NSLog (@"tabs: %@", tabsState);
+        previousTabsState = tabsState;
     }
 }
 
