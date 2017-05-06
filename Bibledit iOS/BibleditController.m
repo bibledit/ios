@@ -148,8 +148,23 @@ NSString * previousTabsState;
     
     NSString * tabsState = [NSString stringWithUTF8String:bibledit_get_pages_to_open ()];
     if (![tabsState isEqualToString:previousTabsState]) {
-        NSLog (@"tabs: %@", tabsState);
         previousTabsState = tabsState;
+        NSData *jsonData = [tabsState dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *jsonError;
+        id jsonArray = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
+        if (!jsonError) {
+            NSMutableArray * labels = [[NSMutableArray alloc] init];
+            NSMutableArray * urls = [[NSMutableArray alloc] init];
+            for (int i = 0; i < [jsonArray count]; i++) {
+                NSDictionary *arrayResult = [jsonArray objectAtIndex:i];
+                NSString * label = [arrayResult objectForKey:@"label"];
+                NSString * url = [arrayResult objectForKey:@"url"];
+                [labels addObject:label];
+                [urls addObject:url];
+            }
+            NSLog(@"%@", labels);
+            NSLog(@"%@", urls);
+        }
     }
 }
 
