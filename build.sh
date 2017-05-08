@@ -143,7 +143,7 @@ make --jobs=`sysctl -n hw.ncpu`
 ./generate . locale
 ./generate . mappings
 ./generate . versifications
-rm logbook/1*
+rm -f logbook/1*
 popd
 
 # Sychronizes the libbibledit data files in the source tree to iOS and cleans them up.
