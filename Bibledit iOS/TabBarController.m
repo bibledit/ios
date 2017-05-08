@@ -22,7 +22,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [BibleditController bibleditReceivedMemoryWarning];
+    [BibleditController receivedMemoryWarning];
 }
 
 

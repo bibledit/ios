@@ -38,7 +38,7 @@
 {
   [super viewDidLoad];
 
-  [BibleditController bibleditViewHasLoaded:self.view];
+  [BibleditController viewControllerViewDidLoad:self.view];
 
   [wk_web_view setNavigationDelegate:self];
 
@@ -55,7 +55,7 @@
 - (void)didReceiveMemoryWarning
 {
   [super didReceiveMemoryWarning];
-  [BibleditController bibleditReceivedMemoryWarning];
+  [BibleditController receivedMemoryWarning];
 }
 
 

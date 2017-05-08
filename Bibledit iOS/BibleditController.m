@@ -14,6 +14,7 @@
 #import "bibledit.h"
 #import <mach/mach.h>
 #import "Variables.h"
+#import "AppDelegate.h"
 
 
 @implementation BibleditController
@@ -22,9 +23,11 @@
 NSString * homeUrl = @"http://localhost:8765";
 NSMutableString * previousSyncState;
 NSString * previousTabsState;
+UITabBarController * uitabbarcontroller;
+Boolean plainViewActive = false;
 
 
-+ (void) bibleditAppLaunched
++ (void) appDelegateDidFinishLaunchingWithOptions
 {
     // Directory where the Bibledit resources reside.
     NSString * resources = [BibleditPaths resources];
@@ -42,29 +45,30 @@ NSString * previousTabsState;
     
     bibledit_start_library ();
     
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(bibleditRunRepetitiveTimer:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(runRepetitiveTimer:) userInfo:nil repeats:YES];
 }
 
 
-+ (void) bibleditViewHasLoaded:(UIView *)uiview
++ (void) viewControllerViewDidLoad:(UIView *)uiview
 {
     ui_view = uiview;
+    [self startPlainView:homeUrl];
+    /*
     WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
     wk_web_view = [[WKWebView alloc] initWithFrame:ui_view.frame configuration:theConfiguration];
     [ui_view addSubview:wk_web_view];
     [BibleditController bibleditBrowseTo:homeUrl];
+     */
 }
 
 
 + (void) tabBarControllerViewDidLoad:(UITabBarController *)tabbarcontroller
 {
-    /*
     uitabbarcontroller = tabbarcontroller;
     NSArray * urls = @[@"", @"editone/index", @"notes/index", @"resource/index"];
     NSArray * labels = @[@"Home", @"Translate", @"Notes", @"Resources"];
     NSInteger active = 1;
     [self startTabbedView:urls labels:labels active:active];
-     */
 }
 
 
@@ -101,7 +105,7 @@ NSString * previousTabsState;
 }
 
 
-+ (void) bibleditReceivedMemoryWarning
++ (void) receivedMemoryWarning
 {
     // There are huge memory leaks in UIWebView.
     // The memory usage keeps creeping up over time when it displays dynamic pages.
@@ -138,7 +142,7 @@ NSString * previousTabsState;
 }
 
 
-+ (void) bibleditRunRepetitiveTimer:(NSTimer *)timer
++ (void) runRepetitiveTimer:(NSTimer *)timer
 {
     NSString * syncState = [NSString stringWithUTF8String:bibledit_is_synchronizing ()];
     if ([syncState isEqualToString:@"true"]) {
@@ -178,7 +182,80 @@ NSString * previousTabsState;
             NSLog(@"%@", urls);
         }
     }
+    
+    NSString * storyBoardName;
+    if (plainViewActive) storyBoardName = @"Tabbed";
+    else storyBoardName = @"Plain";
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:storyBoardName bundle:nil];
+    UIViewController *initialViewController = [storyBoard instantiateInitialViewController];
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appDelegate.window.rootViewController = initialViewController;
+    [appDelegate.window makeKeyAndVisible];
+}
+
+
++ (void) startPlainView:(NSString *)url
+{
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    wk_web_view = [[WKWebView alloc] initWithFrame:ui_view.frame configuration:configuration];
+    [ui_view addSubview:wk_web_view];
+    
+    NSURL *nsurl = [NSURL URLWithString:url];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:nsurl];
+    [wk_web_view loadRequest:urlRequest];
+    
+    plainViewActive = true;
+}
+
+
++ (void) startTabbedView:(NSArray *)urls labels:(NSArray *)labels active:(NSInteger)active
+{
+    NSMutableArray * controllers = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [urls count]; i++) {
+        
+        NSString * url = [urls objectAtIndex:i];
+        NSString * label = [labels objectAtIndex:i];
+        
+        UIViewController* viewController = [[UIViewController alloc] init];
+        UIImage* image = [UIImage imageNamed:@"home.png"];
+        UITabBarItem* tarBarItem = [[UITabBarItem alloc] initWithTitle:label image:image tag:0];
+        viewController.tabBarItem = tarBarItem;
+        
+        WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+        WKWebView * webview = [[WKWebView alloc] initWithFrame:viewController.view.frame configuration:configuration];
+        [viewController.view addSubview:webview];
+        
+        NSMutableString* fullUrl = [[NSMutableString alloc] init];
+        [fullUrl appendString:homeUrl];
+        [fullUrl appendString:url];
+        NSURL *nsurl = [NSURL URLWithString:fullUrl];
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:nsurl];
+        [webview loadRequest:urlRequest];
+        
+        [controllers addObject:viewController];
+    }
+    
+    uitabbarcontroller.viewControllers = controllers;
+    
+    uitabbarcontroller.selectedIndex = active;
+    
+    plainViewActive = false;
 }
 
 
 @end
+
+
+/*
+ IconBeast Lite | 300 Free iOS Tab Bar Icons for iPhone and iPad
+ ---------------------------------------------------------------
+ 
+ Thank you for downloading IconBeast Lite.
+ 
+ IconBeast Lite is a strip-down version of IconBeast Pro ($75). This 300 icons is free for download and is published under Creative Commons Attribution license. You can use these icons in your all your projects, but we required you to credit us by including a http link back to IconBeast website.
+ 
+ You are also allowed to distribute IconBeast Lite to your website, but you must mentioned that this icon set came from IconBeast. You must also put a link back to us in your website.
+ 
+ You are not allowed to sell these icons.
+ */

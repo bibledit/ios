@@ -128,6 +128,11 @@ rsync --archive --delete ../ios $BIBLEDITIOS/
 # From now on the working directory is the temporal location.
 cd $BIBLEDITIOS/ios
 
+# Make the dummy bibledit.h/cpp files ineffective.
+rm Bibledit\ iOS/bibledit.h
+echo // empty > Bibledit\ iOS/bibledit.cpp
+
+
 # Build several databases and other data for inclusion with the iOS package.
 # The reason for this is that building them on iOS takes a lot of time during the setup phase.
 # To include pre-built data, that speeds up the setup phase of Bibledit on iOS.

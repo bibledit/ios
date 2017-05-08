@@ -14,7 +14,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [BibleditController bibleditAppLaunched];
+    [BibleditController appDelegateDidFinishLaunchingWithOptions];
     return YES;
 }
 							

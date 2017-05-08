@@ -10,18 +10,18 @@
 
 @interface BibleditController : NSObject
 
-+ (void) bibleditAppLaunched;
-+ (void) bibleditViewHasLoaded:(UIView *)uiview;
++ (void) appDelegateDidFinishLaunchingWithOptions;
++ (void) viewControllerViewDidLoad:(UIView *)uiview;
 + (void) tabBarControllerViewDidLoad:(UITabBarController *)tabbarcontroller;
 + (void) bibleditInstallResources;
 + (void) bibleditEnteredForeground;
 + (void) bibleditBrowseTo:(NSString*)urlString;
-+ (void) bibleditReceivedMemoryWarning;
++ (void) receivedMemoryWarning;
 + (void) bibleditWillEnterBackground;
 + (void) bibleditWillTerminate;
-+ (void) bibleditRunRepetitiveTimer:(NSTimer *)timer;
-// Todo + (void) startPlainView:(NSString *)url;
-// Todo + (void) startTabbedView:(NSArray *)urls labels:(NSArray *)labels active:(NSInteger)active;
++ (void) runRepetitiveTimer:(NSTimer *)timer;
++ (void) startPlainView:(NSString *)url;
++ (void) startTabbedView:(NSArray *)urls labels:(NSArray *)labels active:(NSInteger)active;
 
 
 @end
