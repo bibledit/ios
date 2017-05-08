@@ -42,7 +42,7 @@ NSString * previousTabsState;
     
     bibledit_start_library ();
     
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(bibleditRunTimer:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(bibleditRunRepetitiveTimer:) userInfo:nil repeats:YES];
 }
 
 
@@ -53,6 +53,18 @@ NSString * previousTabsState;
     wk_web_view = [[WKWebView alloc] initWithFrame:ui_view.frame configuration:theConfiguration];
     [ui_view addSubview:wk_web_view];
     [BibleditController bibleditBrowseTo:homeUrl];
+}
+
+
++ (void) tabBarControllerViewDidLoad:(UITabBarController *)tabbarcontroller
+{
+    /*
+    uitabbarcontroller = tabbarcontroller;
+    NSArray * urls = @[@"", @"editone/index", @"notes/index", @"resource/index"];
+    NSArray * labels = @[@"Home", @"Translate", @"Notes", @"Resources"];
+    NSInteger active = 1;
+    [self startTabbedView:urls labels:labels active:active];
+     */
 }
 
 
@@ -126,7 +138,7 @@ NSString * previousTabsState;
 }
 
 
-+ (void) bibleditRunTimer:(NSTimer *)timer
++ (void) bibleditRunRepetitiveTimer:(NSTimer *)timer
 {
     NSString * syncState = [NSString stringWithUTF8String:bibledit_is_synchronizing ()];
     if ([syncState isEqualToString:@"true"]) {

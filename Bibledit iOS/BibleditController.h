@@ -12,13 +12,16 @@
 
 + (void) bibleditAppLaunched;
 + (void) bibleditViewHasLoaded:(UIView *)uiview;
++ (void) tabBarControllerViewDidLoad:(UITabBarController *)tabbarcontroller;
 + (void) bibleditInstallResources;
 + (void) bibleditEnteredForeground;
 + (void) bibleditBrowseTo:(NSString*)urlString;
 + (void) bibleditReceivedMemoryWarning;
 + (void) bibleditWillEnterBackground;
 + (void) bibleditWillTerminate;
-+ (void) bibleditRunTimer:(NSTimer *)timer;
++ (void) bibleditRunRepetitiveTimer:(NSTimer *)timer;
+// Todo + (void) startPlainView:(NSString *)url;
+// Todo + (void) startTabbedView:(NSArray *)urls labels:(NSArray *)labels active:(NSInteger)active;
 
 
 @end

@@ -8,14 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		CA44E62C1E9E96D400925F9A /* Variables.m in Sources */ = {isa = PBXBuildFile; fileRef = CA44E62B1E9E96D400925F9A /* Variables.m */; };
+		CA4D557F1EC088450067DBB0 /* bibledit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA4D557D1EC088450067DBB0 /* bibledit.cpp */; };
+		CA52F45C1EBF7A0300A7ED86 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA52F45B1EBF7A0300A7ED86 /* Launch.storyboard */; };
+		CA52F45E1EBF7A1500A7ED86 /* Plain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA52F45D1EBF7A1500A7ED86 /* Plain.storyboard */; };
+		CA52F4601EBF7A2100A7ED86 /* Tabbed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA52F45F1EBF7A2100A7ED86 /* Tabbed.storyboard */; };
 		CA6B9C191A9906C800FAB064 /* BibleditController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA6B9C181A9906C800FAB064 /* BibleditController.m */; };
+		CA6FBF571EBF7BDD0073156C /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA6FBF561EBF7BDD0073156C /* TabBarController.m */; };
 		CA9ADE021A8A9752000FD430 /* webroot in Resources */ = {isa = PBXBuildFile; fileRef = CA9ADE011A8A9752000FD430 /* webroot */; };
-		CAB519B41A8A658F00F4ED36 /* libbibledit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519B31A8A658F00F4ED36 /* libbibledit.a */; };
+		CAB519B41A8A658F00F4ED36 /* libbibledit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519B31A8A658F00F4ED36 /* libbibledit.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		CAB519B61A8A6A7F00F4ED36 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519B51A8A6A7F00F4ED36 /* libc++.dylib */; };
 		CAB519BA1A8A6BDD00F4ED36 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519B91A8A6BDD00F4ED36 /* Security.framework */; };
-		CAB519BC1A8A6BE800F4ED36 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519BB1A8A6BE800F4ED36 /* libz.dylib */; };
+		CAB519BC1A8A6BE800F4ED36 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519BB1A8A6BE800F4ED36 /* libz.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		CAB519BE1A8A6BF900F4ED36 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519BD1A8A6BF900F4ED36 /* CFNetwork.framework */; };
-		CAB519C01A8A6C0D00F4ED36 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519BF1A8A6C0D00F4ED36 /* libsqlite3.dylib */; };
+		CAB519C01A8A6C0D00F4ED36 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519BF1A8A6C0D00F4ED36 /* libsqlite3.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CE02135019E03F9B006EE62F /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE02134F19E03F9B006EE62F /* Storyboard.storyboard */; };
 		CE8E8AE219C49FAE0025EAC2 /* BibleditPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8E8AE119C49FAE0025EAC2 /* BibleditPaths.m */; };
 		CE8E8AE519C4A4E50025EAC2 /* BibleditInstallation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8E8AE419C4A4E50025EAC2 /* BibleditInstallation.m */; };
@@ -31,11 +36,18 @@
 
 /* Begin PBXFileReference section */
 		CA0773801A8E80DB0061C5B7 /* develop.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; lineEnding = 0; path = develop.txt; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "<none>"; };
+		CA198B721EC097FC00EE5C33 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		CA44E62B1E9E96D400925F9A /* Variables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Variables.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CA44E62D1E9E96EA00925F9A /* Variables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Variables.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		CA4D557D1EC088450067DBB0 /* bibledit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bibledit.cpp; sourceTree = "<group>"; };
+		CA4D55801EC088750067DBB0 /* bibledit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bibledit.h; sourceTree = "<group>"; };
+		CA52F45B1EBF7A0300A7ED86 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		CA52F45D1EBF7A1500A7ED86 /* Plain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Plain.storyboard; sourceTree = "<group>"; };
+		CA52F45F1EBF7A2100A7ED86 /* Tabbed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tabbed.storyboard; sourceTree = "<group>"; };
 		CA6B9C171A9906C800FAB064 /* BibleditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BibleditController.h; sourceTree = "<group>"; };
 		CA6B9C181A9906C800FAB064 /* BibleditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BibleditController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		CA73236F1B257BE4003E3387 /* bibledit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bibledit.h; path = include/bibledit.h; sourceTree = SOURCE_ROOT; };
+		CA6FBF551EBF7BDD0073156C /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		CA6FBF561EBF7BDD0073156C /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		CA8C8A231B92D9B000E9BA18 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CA8C8A251B92D9BC00E9BA18 /* build.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
 		CA8C8A291B937AB400E9BA18 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -119,6 +131,7 @@
 		CEA9296619B06C9600DA3766 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CA198B721EC097FC00EE5C33 /* CoreText.framework */,
 				CAC4C8831B94944E00FB6700 /* libicudata.a */,
 				CAC4C8841B94944E00FB6700 /* libicui18n.a */,
 				CAC4C8851B94944E00FB6700 /* libicuio.a */,
@@ -148,17 +161,23 @@
 			children = (
 				CA6B9C171A9906C800FAB064 /* BibleditController.h */,
 				CA6B9C181A9906C800FAB064 /* BibleditController.m */,
+				CA52F45B1EBF7A0300A7ED86 /* Launch.storyboard */,
+				CA52F45D1EBF7A1500A7ED86 /* Plain.storyboard */,
+				CA52F45F1EBF7A2100A7ED86 /* Tabbed.storyboard */,
+				CA6FBF551EBF7BDD0073156C /* TabBarController.h */,
+				CA6FBF561EBF7BDD0073156C /* TabBarController.m */,
 				CA44E62B1E9E96D400925F9A /* Variables.m */,
 				CA44E62D1E9E96EA00925F9A /* Variables.h */,
 				CE8E8AE019C49FAE0025EAC2 /* BibleditPaths.h */,
 				CE8E8AE119C49FAE0025EAC2 /* BibleditPaths.m */,
 				CE8E8AE319C4A4E50025EAC2 /* BibleditInstallation.h */,
 				CE8E8AE419C4A4E50025EAC2 /* BibleditInstallation.m */,
-				CA73236F1B257BE4003E3387 /* bibledit.h */,
 				CEA9297F19B06C9600DA3766 /* ViewController.h */,
 				CEA9298019B06C9600DA3766 /* ViewController.m */,
 				CEA9297619B06C9600DA3766 /* AppDelegate.h */,
 				CEA9297719B06C9600DA3766 /* AppDelegate.m */,
+				CA4D55801EC088750067DBB0 /* bibledit.h */,
+				CA4D557D1EC088450067DBB0 /* bibledit.cpp */,
 				CEA9296E19B06C9600DA3766 /* Supporting Files */,
 			);
 			path = "Bibledit iOS";
@@ -241,9 +260,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA9ADE021A8A9752000FD430 /* webroot in Resources */,
+				CA52F45C1EBF7A0300A7ED86 /* Launch.storyboard in Resources */,
+				CA52F4601EBF7A2100A7ED86 /* Tabbed.storyboard in Resources */,
 				CEA9298319B06C9700DA3766 /* Images.xcassets in Resources */,
 				CEA9297219B06C9600DA3766 /* InfoPlist.strings in Resources */,
 				CE02135019E03F9B006EE62F /* Storyboard.storyboard in Resources */,
+				CA52F45E1EBF7A1500A7ED86 /* Plain.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +281,10 @@
 				CE8E8AE219C49FAE0025EAC2 /* BibleditPaths.m in Sources */,
 				CEA9298119B06C9600DA3766 /* ViewController.m in Sources */,
 				CA44E62C1E9E96D400925F9A /* Variables.m in Sources */,
+				CA6FBF571EBF7BDD0073156C /* TabBarController.m in Sources */,
 				CEA9297819B06C9600DA3766 /* AppDelegate.m in Sources */,
 				CEA9297419B06C9600DA3766 /* main.m in Sources */,
+				CA4D557F1EC088450067DBB0 /* bibledit.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
