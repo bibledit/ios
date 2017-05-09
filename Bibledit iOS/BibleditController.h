@@ -20,8 +20,9 @@
 + (void) bibleditWillEnterBackground;
 + (void) bibleditWillTerminate;
 + (void) runRepetitiveTimer:(NSTimer *)timer;
++ (void) loadStoryBoard:(NSString *)name;
 + (void) startPlainView:(NSString *)url;
-+ (void) startTabbedView:(NSArray *)urls labels:(NSArray *)labels active:(NSInteger)active;
++ (void) startTabbedView:(NSArray *)urls labels:(NSArray *)labels;
 
 
 @end

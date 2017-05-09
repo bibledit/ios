@@ -20,11 +20,12 @@
 @implementation BibleditController
 
 
-NSString * homeUrl = @"http://localhost:8765";
+NSString * homeUrl = @"http://localhost:8765/";
 NSMutableString * previousSyncState;
-NSString * previousTabsState;
+NSString * previousTabsState = @"";
 UITabBarController * uitabbarcontroller;
-Boolean plainViewActive = false;
+NSMutableArray * tabLabels;
+NSMutableArray * tabUrls;
 
 
 + (void) appDelegateDidFinishLaunchingWithOptions
@@ -33,12 +34,12 @@ Boolean plainViewActive = false;
     NSString * resources = [BibleditPaths resources];
     const char * resources_path = [resources UTF8String];
     // NSLog(@"Resources %@", resources);
-
+    
     // Directory where the Bibledit web app's webroot resides.
     NSString * webroot = [BibleditPaths documents];
     const char * webroot_path = [webroot UTF8String];
     // NSLog(@"Webroot %@", webroot);
-
+    
     bibledit_initialize_library (resources_path, webroot_path);
     
     bibledit_set_touch_enabled (true);
@@ -53,22 +54,13 @@ Boolean plainViewActive = false;
 {
     ui_view = uiview;
     [self startPlainView:homeUrl];
-    /*
-    WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
-    wk_web_view = [[WKWebView alloc] initWithFrame:ui_view.frame configuration:theConfiguration];
-    [ui_view addSubview:wk_web_view];
-    [BibleditController bibleditBrowseTo:homeUrl];
-     */
 }
 
 
 + (void) tabBarControllerViewDidLoad:(UITabBarController *)tabbarcontroller
 {
     uitabbarcontroller = tabbarcontroller;
-    NSArray * urls = @[@"", @"editone/index", @"notes/index", @"resource/index"];
-    NSArray * labels = @[@"Home", @"Translate", @"Notes", @"Resources"];
-    NSInteger active = 1;
-    [self startTabbedView:urls labels:labels active:active];
+    [self startTabbedView:tabUrls labels:tabLabels];
 }
 
 
@@ -88,7 +80,7 @@ Boolean plainViewActive = false;
     BOOL equal = [bit isEqualToString:homeUrl];
     if (!equal) {
         // Reload home page.
-        [BibleditController bibleditBrowseTo:homeUrl];
+        [BibleditController bibleditBrowseTo:homeUrl]; // Todo check on this one in tabbed view.
     } else {
         // Reload the loaded page, just to be sure that everything works.
         [BibleditController bibleditBrowseTo:path];
@@ -114,7 +106,7 @@ Boolean plainViewActive = false;
     // It uses the webkit rendering engine, and a faster javascript engine.
     // The best solution to the above memory problems is to use WKWebView.
     // That has been implemented.
-
+    
     bibledit_log ("The device runs low on memory.");
     
     struct mach_task_basic_info info;
@@ -156,7 +148,7 @@ Boolean plainViewActive = false;
         }
     }
     previousSyncState = [[NSMutableString alloc] initWithString:syncState];
-
+    
     NSString * url = [NSString stringWithUTF8String:bibledit_get_external_url ()];
     if (url.length != 0) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
@@ -169,24 +161,29 @@ Boolean plainViewActive = false;
         NSError *jsonError;
         id jsonArray = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
         if (!jsonError) {
-            NSMutableArray * labels = [[NSMutableArray alloc] init];
-            NSMutableArray * urls = [[NSMutableArray alloc] init];
+            // Valid JSON: Tabbed view.
+            tabLabels = [[NSMutableArray alloc] init];
+            tabUrls = [[NSMutableArray alloc] init];
             for (int i = 0; i < [jsonArray count]; i++) {
                 NSDictionary *arrayResult = [jsonArray objectAtIndex:i];
                 NSString * label = [arrayResult objectForKey:@"label"];
                 NSString * url = [arrayResult objectForKey:@"url"];
-                [labels addObject:label];
-                [urls addObject:url];
+                [tabLabels addObject:label];
+                [tabUrls addObject:url];
             }
-            NSLog(@"%@", labels);
-            NSLog(@"%@", urls);
+            [self loadStoryBoard:@"Tabbed"];
+        } else {
+            // Invalid JSON: Plain view.
+            NSLog (@"%@", jsonError);
+            [self loadStoryBoard:@"Plain"];
         }
     }
-    
-    NSString * storyBoardName;
-    if (plainViewActive) storyBoardName = @"Tabbed";
-    else storyBoardName = @"Plain";
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:storyBoardName bundle:nil];
+}
+
+
++ (void) loadStoryBoard:(NSString *)name // Todo
+{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:name bundle:nil];
     UIViewController *initialViewController = [storyBoard instantiateInitialViewController];
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     appDelegate.window.rootViewController = initialViewController;
@@ -203,14 +200,14 @@ Boolean plainViewActive = false;
     NSURL *nsurl = [NSURL URLWithString:url];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:nsurl];
     [wk_web_view loadRequest:urlRequest];
-    
-    plainViewActive = true;
 }
 
 
-+ (void) startTabbedView:(NSArray *)urls labels:(NSArray *)labels active:(NSInteger)active
++ (void) startTabbedView:(NSArray *)urls labels:(NSArray *)labels
 {
     NSMutableArray * controllers = [[NSMutableArray alloc] init];
+    
+    NSInteger active = 0;
     
     for (int i = 0; i < [urls count]; i++) {
         
@@ -234,13 +231,16 @@ Boolean plainViewActive = false;
         [webview loadRequest:urlRequest];
         
         [controllers addObject:viewController];
+        
+        // If this tab displays the resources, it is going to be the active tab.
+        if ([url rangeOfString:@"resource"].location != NSNotFound) {
+            active = i;
+        }
     }
     
     uitabbarcontroller.viewControllers = controllers;
     
     uitabbarcontroller.selectedIndex = active;
-    
-    plainViewActive = false;
 }
 
 
