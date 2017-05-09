@@ -174,14 +174,13 @@ NSMutableArray * tabUrls;
             [self loadStoryBoard:@"Tabbed"];
         } else {
             // Invalid JSON: Plain view.
-            NSLog (@"%@", jsonError);
             [self loadStoryBoard:@"Plain"];
         }
     }
 }
 
 
-+ (void) loadStoryBoard:(NSString *)name // Todo
++ (void) loadStoryBoard:(NSString *)name
 {
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:name bundle:nil];
     UIViewController *initialViewController = [storyBoard instantiateInitialViewController];
