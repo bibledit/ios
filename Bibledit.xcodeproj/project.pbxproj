@@ -17,10 +17,6 @@
 		CA9ADE021A8A9752000FD430 /* webroot in Resources */ = {isa = PBXBuildFile; fileRef = CA9ADE011A8A9752000FD430 /* webroot */; };
 		CAB519B41A8A658F00F4ED36 /* libbibledit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519B31A8A658F00F4ED36 /* libbibledit.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		CAB519B61A8A6A7F00F4ED36 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519B51A8A6A7F00F4ED36 /* libc++.dylib */; };
-		CAB519BA1A8A6BDD00F4ED36 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519B91A8A6BDD00F4ED36 /* Security.framework */; };
-		CAB519BC1A8A6BE800F4ED36 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519BB1A8A6BE800F4ED36 /* libz.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
-		CAB519BE1A8A6BF900F4ED36 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519BD1A8A6BF900F4ED36 /* CFNetwork.framework */; };
-		CAB519C01A8A6C0D00F4ED36 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB519BF1A8A6C0D00F4ED36 /* libsqlite3.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CE02135019E03F9B006EE62F /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE02134F19E03F9B006EE62F /* Storyboard.storyboard */; };
 		CE8E8AE219C49FAE0025EAC2 /* BibleditPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8E8AE119C49FAE0025EAC2 /* BibleditPaths.m */; };
 		CE8E8AE519C4A4E50025EAC2 /* BibleditInstallation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8E8AE419C4A4E50025EAC2 /* BibleditInstallation.m */; };
@@ -93,10 +89,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAB519C01A8A6C0D00F4ED36 /* libsqlite3.dylib in Frameworks */,
-				CAB519BE1A8A6BF900F4ED36 /* CFNetwork.framework in Frameworks */,
-				CAB519BC1A8A6BE800F4ED36 /* libz.dylib in Frameworks */,
-				CAB519BA1A8A6BDD00F4ED36 /* Security.framework in Frameworks */,
 				CAB519B61A8A6A7F00F4ED36 /* libc++.dylib in Frameworks */,
 				CAB519B41A8A658F00F4ED36 /* libbibledit.a in Frameworks */,
 				CEA9296A19B06C9600DA3766 /* CoreGraphics.framework in Frameworks */,
