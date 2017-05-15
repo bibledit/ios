@@ -53,6 +53,14 @@ NSMutableArray * tabUrls;
     
     bibledit_initialize_library (resources_path, webroot_path);
     
+    // This thread sleeps for a second.
+    // This fixes a bug where the internal webserver does not start right away
+    // right after the app completed installation,
+    // and consequently the app's screen was completely blank.
+    // This delay fixes that.
+    // It enabled the webserver to start.
+    [NSThread sleepForTimeInterval: 1];
+
     bibledit_set_touch_enabled (true);
     
     bibledit_start_library ();
