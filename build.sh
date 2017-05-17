@@ -199,6 +199,7 @@ compile i386 iPhoneSimulator 32
 clean
 compile x86_64 iPhoneSimulator 64
 
+mkdir -p include
 cp webroot/library/bibledit.h include
 
 echo Creating fat library file
@@ -214,6 +215,7 @@ if [ $EXIT_CODE != 0 ]; then
 fi
 
 echo Copying library into place
+mkdir -p lib
 mv /tmp/libbibledit.a lib
 
 echo Clean libraries from desktop
