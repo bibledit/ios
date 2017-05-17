@@ -3,145 +3,145 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "bibledit_20x20.png",
+      "filename" : "bibledit40x40.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "bibledit_20x20-1.png",
+      "filename" : "bibledit60x60.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "bibledit_29x29-1.png",
+      "filename" : "bibledit29x29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "bibledit_58x58.png",
+      "filename" : "bibledit58x58.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "bibledit_29x29-2.png",
+      "filename" : "bibledit87x87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "bibledit_80x80.png",
+      "filename" : "bibledit80x80.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "bibledit_40x40-1.png",
+      "filename" : "bibledit120x120.png",
       "scale" : "3x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "bibledit_57x57.png",
+      "filename" : "bibledit57x57.png",
       "scale" : "1x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "bibledit_114x114.png",
+      "filename" : "bibledit114x114.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "bibledit_120x120.png",
+      "filename" : "bibledit120x120-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "bibledit_60x60.png",
+      "filename" : "bibledit180x180.png",
       "scale" : "3x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "bibledit_20x20-2.png",
+      "filename" : "bibledit20x20.png",
       "scale" : "1x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "bibledit_20x20-3.png",
+      "filename" : "bibledit40x40-1.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "bibledit_29x29.png",
+      "filename" : "bibledit29x29-1.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "bibledit_58x58-1.png",
+      "filename" : "bibledit58x58-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "bibledit_40x40.png",
+      "filename" : "bibledit40x40-2.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "bibledit_80x80-1.png",
+      "filename" : "bibledit80x80-1.png",
       "scale" : "2x"
     },
     {
       "size" : "50x50",
       "idiom" : "ipad",
-      "filename" : "bibledit_50x50.png",
+      "filename" : "bibledit50x50.png",
       "scale" : "1x"
     },
     {
       "size" : "50x50",
       "idiom" : "ipad",
-      "filename" : "bibledit_100x100-1.png",
+      "filename" : "bibledit100x100.png",
       "scale" : "2x"
     },
     {
       "size" : "72x72",
       "idiom" : "ipad",
-      "filename" : "bibledit_72x72.png",
+      "filename" : "bibledit72x72.png",
       "scale" : "1x"
     },
     {
       "size" : "72x72",
       "idiom" : "ipad",
-      "filename" : "bibledit_144x144.png",
+      "filename" : "bibledit144x144.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "bibledit_76x76.png",
+      "filename" : "bibledit76x76.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "bibledit_152x152.png",
+      "filename" : "bibledit152x152.png",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "bibledit_167x167.png",
+      "filename" : "bibledit83x83.png",
       "scale" : "2x"
     }
   ],
