@@ -3,7 +3,7 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "bibledit40x40.png",
+      "filename" : "bibledit40x40-1.png",
       "scale" : "2x"
     },
     {
@@ -15,13 +15,13 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "bibledit29x29.png",
+      "filename" : "bibledit29x29-1.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "bibledit58x58.png",
+      "filename" : "bibledit58x58-1.png",
       "scale" : "2x"
     },
     {
@@ -33,13 +33,13 @@
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "bibledit80x80.png",
+      "filename" : "bibledit80x80-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "bibledit120x120.png",
+      "filename" : "bibledit120x120-1.png",
       "scale" : "3x"
     },
     {
@@ -75,7 +75,7 @@
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "bibledit40x40.png",
+      "filename" : "bibledit40x40-2.png",
       "scale" : "2x"
     },
     {
