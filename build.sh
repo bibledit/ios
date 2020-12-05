@@ -253,7 +253,7 @@ if [ $? -ne 0 ]; then exit; fi
 mv /tmp/libbibledit.a lib
 if [ $? -ne 0 ]; then exit; fi
 
-echo Clean libraries from desktop
+echo Clean libraries
 rm /tmp/libbibledit-armv7.a
 if [ $? -ne 0 ]; then exit; fi
 rm /tmp/libbibledit-armv7s.a
