@@ -212,9 +212,19 @@ sed -i.bak '/SWORD_CFLAGS =/d' Makefile
 if [ $? -ne 0 ]; then exit; fi
 sed -i.bak '/SWORD_LIBS =/d' Makefile
 if [ $? -ne 0 ]; then exit; fi
-# Update the configuration: No SWORD library.
+sed -i.bak '/ICU_CFLAGS =/d' Makefile
+if [ $? != 0 ]; then exit; fi
+sed -i.bak '/ICU_LIBS =/d' Makefile
+if [ $? != 0 ]; then exit; fi
+sed -i.bak '/XML2_CFLAGS =/d' Makefile
+if [ $? != 0 ]; then exit; fi
+sed -i.bak '/XML2_LIBS =/d' Makefile
+if [ $? != 0 ]; then exit; fi
+# Update the configuration: No SWORD and ICU libraries.
 sed -i.bak '/HAVE_SWORD/d' config.h
 if [ $? -ne 0 ]; then exit; fi
+sed -i.bak '/HAVE_ICU/d' config.h
+if [ $? != 0 ]; then exit; fi
 # The embedded web view cannot upload files.
 sed -i.bak '/CONFIG_ENABLE_FILE_UPLOAD/d' config/config.h
 if [ $? -ne 0 ]; then exit; fi
