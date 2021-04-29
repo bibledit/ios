@@ -204,8 +204,9 @@ if [ $? -ne 0 ]; then exit; fi
 # Enable the single-tab browser.
 ./configure --enable-ios
 if [ $? -ne 0 ]; then exit; fi
-echo 8765 > config/network-port
-if [ $? -ne 0 ]; then exit; fi
+# No longer set the network port manually.
+# echo 8765 > config/network-port
+# if [ $? -ne 0 ]; then exit; fi
 # Update the Makefile.
 sed -i.bak '/SWORD_CFLAGS =/d' Makefile
 if [ $? -ne 0 ]; then exit; fi
