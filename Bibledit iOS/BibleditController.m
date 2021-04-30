@@ -31,7 +31,7 @@
 @implementation BibleditController
 
 
-NSString * homeUrl = @"http://localhost:8765/";
+NSString * homeUrl = @"";
 NSMutableString * previousSyncState;
 NSString * previousTabsState = @"";
 UITabBarController * uitabbarcontroller;
@@ -41,31 +41,35 @@ NSMutableArray * tabUrls;
 
 + (void) appDelegateDidFinishLaunchingWithOptions
 {
-    // Directory where the Bibledit resources reside.
-    NSString * resources = [BibleditPaths resources];
-    const char * resources_path = [resources UTF8String];
-    // NSLog(@"Resources %@", resources);
-    
-    // Directory where the Bibledit web app's webroot resides.
-    NSString * webroot = [BibleditPaths documents];
-    const char * webroot_path = [webroot UTF8String];
-    // NSLog(@"Webroot %@", webroot);
-    
-    bibledit_initialize_library (resources_path, webroot_path);
-    
-    // This thread sleeps for a second.
-    // This fixes a bug where the internal webserver does not start right away
-    // right after the app completed installation,
-    // and consequently the app's screen was completely blank.
-    // This delay fixes that.
-    // It enabled the webserver to start.
-    [NSThread sleepForTimeInterval: 1];
-
-    bibledit_set_touch_enabled (true);
-    
-    bibledit_start_library ();
-    
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(runRepetitiveTimer:) userInfo:nil repeats:YES];
+  // Get the port number that the Bibledit kernel will now negotiate to use.
+  NSString * portNumber = [NSString stringWithUTF8String:bibledit_get_network_port ()];
+  homeUrl = [NSString stringWithFormat:@"http://localhost:%@/", portNumber];
+  
+  // Directory where the Bibledit resources reside.
+  NSString * resources = [BibleditPaths resources];
+  const char * resources_path = [resources UTF8String];
+  // NSLog(@"Resources %@", resources);
+  
+  // Directory where the Bibledit web app's webroot resides.
+  NSString * webroot = [BibleditPaths documents];
+  const char * webroot_path = [webroot UTF8String];
+  // NSLog(@"Webroot %@", webroot);
+  
+  bibledit_initialize_library (resources_path, webroot_path);
+  
+  // This thread sleeps for a second.
+  // This fixes a bug where the internal webserver does not start right away
+  // right after the app completed installation,
+  // and consequently the app's screen was completely blank.
+  // This delay fixes that.
+  // It enabled the webserver to start.
+  [NSThread sleepForTimeInterval: 1];
+  
+  bibledit_set_touch_enabled (true);
+  
+  bibledit_start_library ();
+  
+  [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(runRepetitiveTimer:) userInfo:nil repeats:YES];
 }
 
 
