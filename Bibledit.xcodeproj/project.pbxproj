@@ -220,6 +220,7 @@
 				TargetAttributes = {
 					CEA9296319B06C9600DA3766 = {
 						DevelopmentTeam = L37WFUB5MH;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -408,8 +409,10 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CXX0X_EXTENSIONS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5.0.964;
+				DEVELOPMENT_TEAM = L37WFUB5MH;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -426,6 +429,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.bibledit.ios;
 				PRODUCT_NAME = "bibledit-ios";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64 i386 x86_64";
@@ -441,8 +445,10 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CXX0X_EXTENSIONS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5.0.964;
+				DEVELOPMENT_TEAM = L37WFUB5MH;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -459,6 +465,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.bibledit.ios;
 				PRODUCT_NAME = "bibledit-ios";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64 i386 x86_64";
