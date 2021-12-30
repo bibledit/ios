@@ -66,7 +66,7 @@ extension="${cpp##*.}"
 basepath="${cpp%.*}"
 echo Compiling $cpp
 
-$TOOLDIR/clang++ -arch ${ARCH} -isysroot $SYSROOT -I. $COMPILEFLAGS -std=c++11 -stdlib=libc++ -o $basepath.o $cpp
+$TOOLDIR/clang++ -arch ${ARCH} -isysroot $SYSROOT -I. $COMPILEFLAGS -std=c++17 -stdlib=libc++ -o $basepath.o $cpp
 if [ $? -ne 0 ]; then exit; fi
 
 done
