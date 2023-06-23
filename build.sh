@@ -51,11 +51,13 @@ if [ $? -ne 0 ]; then exit; fi
 # Save the names of the C++ sources to file and load them.
 grep .cpp sources.txt > cppfiles.txt
 if [ $? -ne 0 ]; then exit; fi
+grep .cxx sources.txt >> cppfiles.txt
+if [ $? -ne 0 ]; then exit; fi
 CPPFILES=(`cat cppfiles.txt`)
 if [ $? -ne 0 ]; then exit; fi
 
 # Save the name of the C sources to file and load them.
-sed '/.cpp/d' sources.txt > cfiles.txt
+cat sources.txt | sed '/.cpp/d' | sed '/.cxx/d' > cfiles.txt
 if [ $? -ne 0 ]; then exit; fi
 CFILES=(`cat cfiles.txt`)
 if [ $? -ne 0 ]; then exit; fi
@@ -64,8 +66,9 @@ for cpp in ${CPPFILES[@]}; do
 
 extension="${cpp##*.}"
 basepath="${cpp%.*}"
-echo Compiling $cpp
+echo Compiling c++ $cpp
 
+# For debugging, add --verbose
 $TOOLDIR/clang++ -arch ${ARCH} -isysroot $SYSROOT -I. $COMPILEFLAGS -std=c++17 -stdlib=libc++ -o $basepath.o $cpp
 if [ $? -ne 0 ]; then exit; fi
 
@@ -75,7 +78,7 @@ for c in ${CFILES[@]}; do
 
 extension="${c##*.}"
 basepath="${c%.*}"
-echo Compiling $c
+echo Compiling c $c
 
 $TOOLDIR/clang -arch ${ARCH} -isysroot $SYSROOT -I. $COMPILEFLAGS -o $basepath.o $c
 if [ $? -ne 0 ]; then exit; fi
@@ -220,12 +223,14 @@ sed -i.bak '/XML2_CFLAGS =/d' Makefile
 if [ $? != 0 ]; then exit; fi
 sed -i.bak '/XML2_LIBS =/d' Makefile
 if [ $? != 0 ]; then exit; fi
-# Update the configuration: No external SWORD and ICU and UTF8PROC libraries.
+# Update the configuration: No external SWORD / ICU / UTF8PROC / PUGIXML libraries.
 sed -i.bak '/HAVE_SWORD/d' config.h
 if [ $? -ne 0 ]; then exit; fi
 sed -i.bak '/HAVE_ICU/d' config.h
 if [ $? != 0 ]; then exit; fi
 sed -i.bak '/HAVE_UTF8PROC/d' config.h
+if [ $? != 0 ]; then exit; fi
+sed -i.bak '/HAVE_PUGIXML/d' config.h
 if [ $? != 0 ]; then exit; fi
 # The embedded web view cannot upload files.
 sed -i.bak '/CONFIG_ENABLE_FILE_UPLOAD/d' config/config.h
