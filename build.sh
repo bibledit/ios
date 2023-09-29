@@ -69,7 +69,7 @@ basepath="${cpp%.*}"
 echo Compiling c++ $cpp
 
 # For debugging, add --verbose
-$TOOLDIR/clang++ -arch ${ARCH} -isysroot $SYSROOT -I. $COMPILEFLAGS -std=c++17 -stdlib=libc++ -o $basepath.o $cpp
+$TOOLDIR/clang++ -arch ${ARCH} -isysroot $SYSROOT -I. $COMPILEFLAGS -std=c++20 -stdlib=libc++ -o $basepath.o $cpp
 if [ $? -ne 0 ]; then exit; fi
 
 done
