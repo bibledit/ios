@@ -120,7 +120,7 @@ if [ $? -ne 0 ]; then exit; fi
 
 
 # Above this point are the functions.
-# Below this point starts the main script.
+# The main script starts below this point.
 
 
 # Take the relevant source code for building Bibledit for iOS.
