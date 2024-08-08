@@ -15,6 +15,10 @@ Libraries
 
 The Bibledit library depends on libsqlite3, libz, libc++ Security.framework CFNetwork.framework. The iOS SDK with Xcode includes these libraries. Link against all of these libraries in the project settings, the Build Phases.
 
+In 2024 the app was built with library MbedTLS 3.x but it could not securely connect
+to Bibledit Cloud then.
+Therefore it was built with MbedTLS 2.x, and then it works well.
+
 Building
 ========
 

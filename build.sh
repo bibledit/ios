@@ -16,8 +16,8 @@ function clean
 }
 
 
-# Build libbibledit for one iOS architecure.
-# This script runs on OS X.
+# Build libbibledit for one iOS architecture.
+# This script runs on macOS.
 function compile
 {
 
@@ -31,7 +31,7 @@ SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/$PLATFORM.platform/
 if [ $? -ne 0 ]; then exit; fi
 TOOLDIR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
 if [ $? -ne 0 ]; then exit; fi
-COMPILEFLAGS="-Wall -Wextra -pedantic -g -O2 -c -I.."
+COMPILEFLAGS="-Wall -g -O2 -c -I.."
 if [ $? -ne 0 ]; then exit; fi
 
 pushd webroot
@@ -45,7 +45,8 @@ if [ $? -ne 0 ]; then exit; fi
 # * Remove tabs.
 # * Remove new lines.
 # * Remove backslashes.
-sed -n "/libbibledit_a_SOURCES/,/bin_PROGRAMS/p" Makefile.am | tail -n +2 | sed '$d' | strings | sed 's/\\//g' > sources.txt
+# * Remove the mbedtls sources.
+sed -n "/libbibledit_a_SOURCES/,/bin_PROGRAMS/p" Makefile.am | tail -n +2 | sed '$d' | strings | sed 's/\\//g' | sed '/mbedtls/d' > sources.txt
 if [ $? -ne 0 ]; then exit; fi
 
 # Save the names of the C++ sources to file and load them.
@@ -58,6 +59,8 @@ if [ $? -ne 0 ]; then exit; fi
 
 # Save the name of the C sources to file and load them.
 cat sources.txt | sed '/.cpp/d' | sed '/.cxx/d' > cfiles.txt
+if [ $? -ne 0 ]; then exit; fi
+ls mbedtls/*.c >> cfiles.txt
 if [ $? -ne 0 ]; then exit; fi
 CFILES=(`cat cfiles.txt`)
 if [ $? -ne 0 ]; then exit; fi
@@ -173,7 +176,7 @@ if [ $? -ne 0 ]; then exit; fi
 popd
 if [ $? -ne 0 ]; then exit; fi
 
-# Sychronizes the libbibledit data files in the source tree to iOS and cleans them up.
+echo Sychronize the libbibledit data files in the source tree to iOS and clean them up.
 rsync -a --delete ../cloud/ webroot
 if [ $? -ne 0 ]; then exit; fi
 pushd webroot
@@ -202,28 +205,33 @@ if [ $? -ne 0 ]; then exit; fi
 
 pushd webroot
 if [ $? -ne 0 ]; then exit; fi
-# Configure Bibledit in client mode,
-# Run only only one parallel task so the interface is more responsive.
-# Enable the single-tab browser.
+echo Configure Bibledit in client mode
+echo Run only one parallel task so the interface is more responsive
+echo Enable the single-tab browser
 ./configure --enable-ios
 if [ $? -ne 0 ]; then exit; fi
 # No longer set the network port manually.
 # echo 8765 > config/network-port
 # if [ $? -ne 0 ]; then exit; fi
-# Update the Makefile.
-sed -i.bak '/SWORD_CFLAGS =/d' Makefile
+echo Switch to MbedTLS 2.x
+rm -rf mbedtls
 if [ $? -ne 0 ]; then exit; fi
-sed -i.bak '/SWORD_LIBS =/d' Makefile
+mv mbedtls2 mbedtls
 if [ $? -ne 0 ]; then exit; fi
-sed -i.bak '/ICU_CFLAGS =/d' Makefile
-if [ $? != 0 ]; then exit; fi
-sed -i.bak '/ICU_LIBS =/d' Makefile
-if [ $? != 0 ]; then exit; fi
-sed -i.bak '/XML2_CFLAGS =/d' Makefile
-if [ $? != 0 ]; then exit; fi
-sed -i.bak '/XML2_LIBS =/d' Makefile
-if [ $? != 0 ]; then exit; fi
-# Update the configuration: No external SWORD / ICU / UTF8PROC / PUGIXML libraries.
+#echo Update the Makefile
+#sed -i.bak '/SWORD_CFLAGS =/d' Makefile
+#if [ $? -ne 0 ]; then exit; fi
+#sed -i.bak '/SWORD_LIBS =/d' Makefile
+#if [ $? -ne 0 ]; then exit; fi
+#sed -i.bak '/ICU_CFLAGS =/d' Makefile
+#if [ $? != 0 ]; then exit; fi
+#sed -i.bak '/ICU_LIBS =/d' Makefile
+#if [ $? != 0 ]; then exit; fi
+#sed -i.bak '/XML2_CFLAGS =/d' Makefile
+#if [ $? != 0 ]; then exit; fi
+#sed -i.bak '/XML2_LIBS =/d' Makefile
+#if [ $? != 0 ]; then exit; fi
+echo Update the configuration: No external SWORD / ICU / UTF8PROC / PUGIXML libraries.
 sed -i.bak '/HAVE_SWORD/d' config.h
 if [ $? -ne 0 ]; then exit; fi
 sed -i.bak '/HAVE_ICU/d' config.h
@@ -232,10 +240,10 @@ sed -i.bak '/HAVE_UTF8PROC/d' config.h
 if [ $? != 0 ]; then exit; fi
 sed -i.bak '/HAVE_PUGIXML/d' config.h
 if [ $? != 0 ]; then exit; fi
-# The embedded web view cannot upload files.
+echo The embedded web view cannot upload files.
 sed -i.bak '/CONFIG_ENABLE_FILE_UPLOAD/d' config/config.h
 if [ $? -ne 0 ]; then exit; fi
-# Done.
+echo Done.
 popd
 if [ $? -ne 0 ]; then exit; fi
 
