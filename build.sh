@@ -26,7 +26,7 @@ PLATFORM=$2
 BITS=$3
 echo Compile for architecture $ARCH $BITS bits
 
-export IPHONEOS_DEPLOYMENT_TARGET="10.0"
+export IPHONEOS_DEPLOYMENT_TARGET="13.0"
 SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/$PLATFORM.platform/Developer/SDKs/$PLATFORM.sdk
 if [ $? -ne 0 ]; then exit; fi
 TOOLDIR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
@@ -69,7 +69,7 @@ for cpp in ${CPPFILES[@]}; do
 
 extension="${cpp##*.}"
 basepath="${cpp%.*}"
-echo Compiling c++ $cpp
+echo Compiling $cpp
 
 # For debugging, add --verbose
 $TOOLDIR/clang++ -arch ${ARCH} -isysroot $SYSROOT -I. $COMPILEFLAGS -std=c++20 -stdlib=libc++ -o $basepath.o $cpp
@@ -81,7 +81,7 @@ for c in ${CFILES[@]}; do
 
 extension="${c##*.}"
 basepath="${c%.*}"
-echo Compiling c $c
+echo Compiling $c
 
 $TOOLDIR/clang -arch ${ARCH} -isysroot $SYSROOT -I. $COMPILEFLAGS -o $basepath.o $c
 if [ $? -ne 0 ]; then exit; fi
@@ -247,17 +247,19 @@ echo Done.
 popd
 if [ $? -ne 0 ]; then exit; fi
 
-clean
-compile armv7 iPhoneOS 32
+echo Target iOS 13 excludes 32 bits builds
 
-clean
-compile armv7s iPhoneOS 32
+#clean
+#compile armv7 iPhoneOS 32
+
+#clean
+#compile armv7s iPhoneOS 32
 
 clean
 compile arm64 iPhoneOS 64
 
-clean
-compile i386 iPhoneSimulator 32
+#clean
+#compile i386 iPhoneSimulator 32
 
 clean
 compile x86_64 iPhoneSimulator 64
@@ -268,7 +270,8 @@ cp webroot/library/bibledit.h include
 if [ $? -ne 0 ]; then exit; fi
 
 echo Creating fat library file
-lipo -create -output /tmp/libbibledit.a /tmp/libbibledit-armv7.a /tmp/libbibledit-armv7s.a /tmp/libbibledit-arm64.a /tmp/libbibledit-i386.a /tmp/libbibledit-x86_64.a
+# lipo -create -output /tmp/libbibledit.a /tmp/libbibledit-armv7.a /tmp/libbibledit-armv7s.a /tmp/libbibledit-arm64.a /tmp/libbibledit-i386.a /tmp/libbibledit-x86_64.a
+lipo -create -output /tmp/libbibledit.a /tmp/libbibledit-arm64.a /tmp/libbibledit-x86_64.a
 if [ $? -ne 0 ]; then exit; fi
 lipo -info /tmp/libbibledit.a
 if [ $? -ne 0 ]; then exit; fi
@@ -280,14 +283,14 @@ mv /tmp/libbibledit.a lib
 if [ $? -ne 0 ]; then exit; fi
 
 echo Clean libraries
-rm /tmp/libbibledit-armv7.a
-if [ $? -ne 0 ]; then exit; fi
-rm /tmp/libbibledit-armv7s.a
-if [ $? -ne 0 ]; then exit; fi
+#rm /tmp/libbibledit-armv7.a
+#if [ $? -ne 0 ]; then exit; fi
+#rm /tmp/libbibledit-armv7s.a
+#if [ $? -ne 0 ]; then exit; fi
 rm /tmp/libbibledit-arm64.a
 if [ $? -ne 0 ]; then exit; fi
-rm /tmp/libbibledit-i386.a
-if [ $? -ne 0 ]; then exit; fi
+#rm /tmp/libbibledit-i386.a
+#if [ $? -ne 0 ]; then exit; fi
 rm /tmp/libbibledit-x86_64.a
 if [ $? -ne 0 ]; then exit; fi
 
