@@ -9,39 +9,13 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button(action: {
-                    web_view.goBack()
-                }){
-                    Image(systemName: "arrow.backward")
-                        .font(.title)
-                        .padding()
-                }
-                
-                TextField("Enter url", text: $urlString)
-                
-                Button(action: {
-                    web_view.loadURL(urlString: urlString)
-                }, label: {
-                    Text("Go")
-                })
-                
-                Button(action: {
-                    web_view.goForward()
-                }){
-                    Image(systemName: "arrow.forward")
-                        .font(.title)
-                        .padding()
-                    
-                    
-                }
-            }.background(Color(.systemGray6))
-            
             // main webview
             web_view
         }
         .onAppear(){
             web_view.loadURL(urlString: urlString)
+        }
+        .onDisappear(){
         }
     }
 }
