@@ -6,3 +6,10 @@ Creating the basic app structure
 * Xcode will ask whether to create a bridging header: Do so.
 * Set C++ and Objective-C Interoperability to "C++/Objective-C++".
 * Surround the C++ API with "extern "C" {}".
+
+References:
+https://medium.com/@canakyildz/c-and-swift-mix-from-obj-c-bridging-layers-to-interoperability-c558238c5b52
+https://medium.com/@aniketbaneani/seamlessly-blend-c-with-xcode-a-developers-guide-to-ios-integration-7e83d7f19ab8
+https://medium.com/@jakir/webview-in-swiftui-3c1cd8957165
+
+
