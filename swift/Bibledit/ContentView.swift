@@ -13,6 +13,7 @@ struct ContentView: View {
             web_view
         }
         .onAppear(){
+            print (String(cString: jesus_saves()))
             web_view.loadURL(urlString: urlString)
         }
         .onDisappear(){

@@ -6,7 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CA1C56D92CD407DC005E41D5 /* develop.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA1C56D02CD407DC005E41D5 /* develop.txt */; };
+		CA1C56DB2CD40F8F005E41D5 /* refresh.sh in Resources */ = {isa = PBXBuildFile; fileRef = CA1C56DA2CD40F8F005E41D5 /* refresh.sh */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		CA1C56D02CD407DC005E41D5 /* develop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = develop.txt; sourceTree = "<group>"; };
+		CA1C56DA2CD40F8F005E41D5 /* refresh.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = refresh.sh; sourceTree = "<group>"; };
 		CA5E0C4F2CCD6BAE00234D54 /* Bibledit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bibledit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -33,7 +40,9 @@
 			isa = PBXGroup;
 			children = (
 				CA5E0C512CCD6BAE00234D54 /* Bibledit */,
+				CA1C56D02CD407DC005E41D5 /* develop.txt */,
 				CA5E0C502CCD6BAE00234D54 /* Products */,
+				CA1C56DA2CD40F8F005E41D5 /* refresh.sh */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +119,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA1C56DB2CD40F8F005E41D5 /* refresh.sh in Resources */,
+				CA1C56D92CD407DC005E41D5 /* develop.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
