@@ -1,0 +1,8 @@
+Creating the basic app structure
+================================
+
+* Creat a new iOS app, choose SwiftUI and language Swift.
+* Add a new C++ file to the Bibledit folder, including the header file.
+* Xcode will ask whether to create a bridging header: Do so.
+* Set C++ and Objective-C Interoperability to "C++/Objective-C++".
+* Surround the C++ API with "extern "C" {}".
