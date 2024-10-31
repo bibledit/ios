@@ -139,13 +139,13 @@ BIBLEDITIOS=/tmp/bibledit-ios
 echo Synchronizing relevant source code to $BIBLEDITIOS
 mkdir -p $BIBLEDITIOS
 if [ $? -ne 0 ]; then exit; fi
-rsync --archive --delete ../cloud $BIBLEDITIOS/
+rsync --archive --delete ../../cloud $BIBLEDITIOS/
 if [ $? -ne 0 ]; then exit; fi
-rsync --archive --delete ../ios $BIBLEDITIOS/
+rsync --archive --delete ../objective-c $BIBLEDITIOS/
 if [ $? -ne 0 ]; then exit; fi
 
 # From now on the working directory is the temporal location.
-cd $BIBLEDITIOS/ios
+cd $BIBLEDITIOS/objective-c
 if [ $? -ne 0 ]; then exit; fi
 
 # Make the dummy bibledit.h/cpp files ineffective.
