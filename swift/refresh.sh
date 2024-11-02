@@ -153,6 +153,8 @@ rm locale/README
 if [ $? -ne 0 ]; then exit; fi
 find . -name '*.sh' -delete
 if [ $? -ne 0 ]; then exit; fi
+rm -rf mbedtls*
+if [ $? -ne 0 ]; then exit; fi
 popd
 if [ $? -ne 0 ]; then exit; fi
 
