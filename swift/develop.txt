@@ -12,4 +12,8 @@ https://medium.com/@canakyildz/c-and-swift-mix-from-obj-c-bridging-layers-to-int
 https://medium.com/@aniketbaneani/seamlessly-blend-c-with-xcode-a-developers-guide-to-ios-integration-7e83d7f19ab8
 https://medium.com/@jakir/webview-in-swiftui-3c1cd8957165
 
+Hints for compiling C and C++ code
+==================================
 
+* Set the (user) header search paths to: ${PROJECT_DIR}/Bibledit/src
+* Set the excluded source file names to: ${PROJECT_DIR}/Bibledit/src/utf8proc/utf8proc_data.c
