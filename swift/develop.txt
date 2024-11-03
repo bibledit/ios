@@ -15,6 +15,6 @@ https://medium.com/@jakir/webview-in-swiftui-3c1cd8957165
 Hints for compiling C and C++ code
 ==================================
 
-* Set the (user) header search paths to: ${PROJECT_DIR}/Bibledit/src
-* Set the excluded source file names to: ${PROJECT_DIR}/Bibledit/src/utf8proc/utf8proc_data.c
+* Set the (user) header search paths to: ${PROJECT_DIR}/Bibledit/kernel
+* Set the excluded source file names to: ${PROJECT_DIR}/Bibledit/kernel/utf8proc/utf8proc_data.c
 * The Bibledit kernel source is not in git: Get it through the ./refresh.sh script.
