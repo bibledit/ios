@@ -14,7 +14,7 @@ echo The source path is $IOSSOURCE
 
 
 KERNELSOURCE=../../cloud
-KERNELDEST=Bibledit/src
+KERNELDEST=Bibledit/kernel
 WEBROOT=Bibledit/webroot
 
 
