@@ -57,3 +57,4 @@ lib/server
 lib/config.h
 *.xcuserstate
 /swift/Bibledit/webroot
+/swift/Bibledit/kernel
