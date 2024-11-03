@@ -14,14 +14,52 @@ struct ContentView: View {
         }
         .onAppear(){
             print (String(cString: jesus_saves()))
+            
+            
+            // Information about bundles:
+            // https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/Introduction/Introduction.html
+
+            let index_html_path : String = Bundle.main.path(forResource: "index", ofType: "html")!
+            print (index_html_path)
+            
+            let index_html_url : URL = URL(fileURLWithPath: index_html_path)
+            print (index_html_url)
+            
+            urlString = String(describing: index_html_url)
+            
+            let resource_path = Bundle.main.resourcePath!
+            print (resource_path)
+            
+            
+            let file_manager = FileManager.default
+            do {
+                let items = try file_manager.contentsOfDirectory(atPath: resource_path)
+                for item in items {
+                    print (item)
+                }
+            }
+            catch {
+            }
+            
+
+            // This iOS app gets a slice of storage just for itself.
+            // This is called the documents directory.
+            // It is read-write storage.
+            let paths = file_manager.urls(for: .documentDirectory, in: .userDomainMask)
+            let documents_directory = paths.first!
+            print (documents_directory)
+            
+            
+
+            
+            
+          
+            
             web_view.loadURL(urlString: urlString)
         }
         .onDisappear(){
         }
     }
-}
-#Preview {
-    ContentView()
 }
 
 struct WebView: UIViewRepresentable {
