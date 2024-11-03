@@ -6,11 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		CA1C56D92CD407DC005E41D5 /* develop.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA1C56D02CD407DC005E41D5 /* develop.txt */; };
-		CA1C56DB2CD40F8F005E41D5 /* refresh.sh in Resources */ = {isa = PBXBuildFile; fileRef = CA1C56DA2CD40F8F005E41D5 /* refresh.sh */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		CA1C56D02CD407DC005E41D5 /* develop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = develop.txt; sourceTree = "<group>"; };
 		CA1C56DA2CD40F8F005E41D5 /* refresh.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = refresh.sh; sourceTree = "<group>"; };
@@ -181,8 +176,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA1C56DB2CD40F8F005E41D5 /* refresh.sh in Resources */,
-				CA1C56D92CD407DC005E41D5 /* develop.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
