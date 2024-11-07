@@ -15,11 +15,10 @@ struct ContentView: View {
         .onAppear(){
             print (String(cString: jesus_saves()))
             
-            
             // Information about bundles:
             // https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/Introduction/Introduction.html
 
-            let index_html_path : String = Bundle.main.path(forResource: "index", ofType: "html")!
+            let index_html_path : String = Bundle.main.path(forResource: "loading", ofType: "html")!
             
             let index_html_url : URL = URL(fileURLWithPath: index_html_path)
             
@@ -109,9 +108,6 @@ struct ContentView: View {
                         }
                     }
                     print ("Created", file_count, "files in the webroot")
-
-
-
                 }
                 catch {
                 }
@@ -121,7 +117,6 @@ struct ContentView: View {
                     urlString = "https://bibledit.org:8091"
                     web_view.loadURL(urlString: urlString)
                 }
-
             }
             
             
