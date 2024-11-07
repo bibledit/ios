@@ -20,42 +20,119 @@ struct ContentView: View {
             // https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/Introduction/Introduction.html
 
             let index_html_path : String = Bundle.main.path(forResource: "index", ofType: "html")!
-            print (index_html_path)
             
             let index_html_url : URL = URL(fileURLWithPath: index_html_path)
-            print (index_html_url)
             
             urlString = String(describing: index_html_url)
-            
-            let resource_path = Bundle.main.resourcePath!
-            print (resource_path)
-            
-            
-            let file_manager = FileManager.default
-            do {
-                let items = try file_manager.contentsOfDirectory(atPath: resource_path)
-                for item in items {
-                    print (item)
-                }
-            }
-            catch {
-            }
-            
 
+            web_view.loadURL(urlString: urlString)
+
+            let resource_path = Bundle.main.resourcePath!
+            print ("Resource path", resource_path)
+            
+            let kernel_version = String(cString: bibledit_get_version_number())
+            print ("Bibledit kernel version", kernel_version)
+            
             // This iOS app gets a slice of storage just for itself.
             // This is called the documents directory.
             // It is read-write storage.
+            let file_manager = FileManager.default
             let paths = file_manager.urls(for: .documentDirectory, in: .userDomainMask)
             let documents_directory = paths.first!
-            print (documents_directory)
-            
-            
+            print ("Documents directory", documents_directory)
 
+            let webroot = documents_directory.appendingPathComponent("webroot")
+            print ("Webroot", webroot)
+            
+            DispatchQueue.global(qos: .background).async {
+                // Run task that may take relatively long.
+                let dir_hash = "dir#"
+                let file_hash = "file#"
+                let dot_res = ".res"
+                let hash = "#"
+                let slash = "/"
+                let file_manager = FileManager.default
+                do {
+                    let filenames = try file_manager.contentsOfDirectory(atPath: resource_path)
+                    // The refresh.sh script has encoded all directories in the source webroot
+                    // to specially crafted files encoding the original directory structure.
+                    // Decode the desired directories, and create them all in the webroot.
+                    var directory_count = 0
+                    for resource_filename in filenames {
+                        if resource_filename.hasPrefix(dir_hash) {
+                            if resource_filename.hasSuffix(dot_res) {
+                                // Example: dir#mimetic098#codec.res
+                                var webroot_filename = resource_filename
+                                // Example: mimetic098#codec.res
+                                webroot_filename = String(webroot_filename.dropFirst(dir_hash.count))
+                                // Example: mimetic098#codec
+                                webroot_filename = String(webroot_filename.dropLast(dot_res.count))
+                                // Example: mimetic098/codec
+                                webroot_filename = webroot_filename.replacingOccurrences(of: hash, with: slash)
+                                // Full folder path to create.
+                                let webroot_filename_url = webroot.appendingPathComponent(webroot_filename)
+                                // Create this directory.
+                                try! file_manager.createDirectory(at: webroot_filename_url, withIntermediateDirectories: true)
+                                directory_count += 1
+                            }
+                        }
+                    }
+                    print ("Created", directory_count, "directories in the webroot")
+
+                    // Once the directories have been created first, now go on with the files in those directories.
+                    // The refresh.sh script has encoded all files in the source webroot
+                    // to specially crafted files encoding the original file path.
+                    // Decode the desired files, and create them all in the webroot.
+                    var file_count = 0
+                    for resource_filename in filenames {
+                        if resource_filename.hasPrefix(file_hash) {
+                            if resource_filename.hasSuffix(dot_res) {
+                                // Example: file#bootstrap#loading.css.res
+                                var webroot_filename = resource_filename
+                                // Example: bootstrap#loading.css.res
+                                webroot_filename = String(webroot_filename.dropFirst(dir_hash.count))
+                                // Example: bootstrap#loading.css
+                                webroot_filename = String(webroot_filename.dropLast(dot_res.count))
+                                // Example: bootstrap/loading.css
+                                webroot_filename = webroot_filename.replacingOccurrences(of: hash, with: slash)
+                                // Full file path to copy the resource to.
+                                let webroot_filename_url = webroot.appendingPathComponent(webroot_filename)
+                                // The full original resource path.
+                                let resource_path = resource_path + slash + resource_filename
+                                // Copy the resource to this full file path.
+                                do {
+                                    try file_manager.copyItem(atPath: resource_path, toPath: webroot_filename_url.path())
+                                }
+                                catch {}
+                                file_count += 1
+                            }
+                        }
+                    }
+                    print ("Created", file_count, "files in the webroot")
+
+
+
+                }
+                catch {
+                }
+
+                // Once done, update the UI on the main thread.
+                DispatchQueue.main.async {
+                    urlString = "https://bibledit.org:8091"
+                    web_view.loadURL(urlString: urlString)
+                }
+
+            }
+            
             
             
           
             
-            web_view.loadURL(urlString: urlString)
+            
+            
+            
+            
+            
         }
         .onDisappear(){
         }

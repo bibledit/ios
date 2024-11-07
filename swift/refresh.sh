@@ -161,4 +161,57 @@ popd
 if [ $? -ne 0 ]; then exit; fi
 
 
+echo Convert the file hierarchy in the webroot to a flat structure
+
+pushd $WEBROOT
+if [ $? -ne 0 ]; then exit; fi
+
+echo Creating array of directories in webroot
+directories=($(find . -type d))
+
+echo Creating array of files in webroot
+files=($(find . -type f))
+
+echo Iterate over the directories
+echo Convert them to marked files
+echo Always end with .res to ensure Xcode sees them as resources
+echo Example:
+echo Directory \"database/config\" becomes file \"dir#database#config.res\"
+for directory in ${directories[@]}
+do
+  # Remove the initial dot slash, e.g. change './help' to 'help'.
+  directory=${directory#./}
+  # Replace the slashes with '#', e.g. change 'mimetic098/rfc822' tp 'mimetic098#rfc822'.
+  directory=${directory//\//#}
+  # Create a filename like 'dir#help' or 'dir#mimetic098#ref822.res'.
+  file=dir#${directory}.res
+  echo folder > $file
+done
+
+echo Iterate over the files
+echo Convert them to marked files
+echo Always end with .res to ensure Xcode sees them as resources
+echo Example:
+echo Directory \"help/changelog.html\" becomes file \"file#help#changelog.html.res\"
+for file in ${files[@]}
+do
+  # Remove the initial dot slash, e.g. change './help/changelog.html' to 'help/changelog.html'.
+  file2=${file#./}
+  # Replace the slashes with '#', e.g. change 'help/changelog.html' tp 'help#changelog.html'.
+  file2=${file2//\//#}
+  # Move the original file to a new file like 'file#help#changelog.html.res'.
+  file2=file#${file2}.res
+  mv $file $file2
+  if [ $? -ne 0 ]; then exit; fi
+done
+
+echo Remove the now empty original directories
+for directory in ${directories[@]}
+do
+  rm -rf $directory
+done
+
+popd
+if [ $? -ne 0 ]; then exit; fi
+
 echo Succesfully refreshed the Bibledit kernel
