@@ -68,7 +68,7 @@ body {
 }
 
 #software-name {
-  font: 4.5rem "Montserrat Light", sans-serif;
+  font: 4rem sans-serif;
   background-color: #598fb2;
   background-image: linear-gradient(35deg, #196394, #30739f, #598fb2);
   background-image: -webkit-linear-gradient(35deg, #196394, #30739f, #598fb2);
@@ -77,6 +77,14 @@ body {
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
+  animation: wiggle 1s infinite;
+}
+
+@keyframes wiggle {
+    0% { transform: skewX(0deg); }
+    25% { transform: skewX(9deg); }
+    50% { transform: skewX(0deg); }
+    75% { transform: skewX(-9deg); }
 }
 
 .centerbible {
