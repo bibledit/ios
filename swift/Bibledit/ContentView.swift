@@ -6,10 +6,11 @@ let web_view = WebView()
 struct ContentView: View {
 
     @Environment(\.scenePhase) var scenePhase
-    
+
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
     var body: some View {
         VStack {
-            // main webview
             web_view
         }
         .onAppear(){
@@ -71,6 +72,9 @@ struct ContentView: View {
         //         print("Background")
         //     }
         // }
+        .onReceive(timer) { input in
+            //print ("Timer", input)
+        }
     }
 }
 
