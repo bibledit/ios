@@ -4,6 +4,8 @@ import WebKit
 let web_view = WebView()
 
 struct ContentView: View {
+
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
         VStack {
@@ -13,9 +15,8 @@ struct ContentView: View {
         .onAppear(){
 
             // When the webview appears, it shows a "loading" splash screen.
-            let index_html_path : String = Bundle.main.path(forResource: "loading", ofType: "html")!
-            let index_html_url : URL = URL(fileURLWithPath: index_html_path)
-            web_view.loadURL(urlString: String(describing: index_html_url))
+            let index_html : URL = URL(fileURLWithPath: Bundle.main.path(forResource: "loading", ofType: "html")!)
+            web_view.loadURL(urlString: String(describing: index_html))
 
             // The file URL where the app has stored its resources.
             print ("Resources URL", resources_url())
@@ -47,9 +48,35 @@ struct ContentView: View {
             }
         }
         .onDisappear(){
+            print ("on disappear")
         }
+        .onChange(of: scenePhase) { phase in
+            if phase == .active {
+                print("Change scene phase to active")
+            }
+            if phase == .inactive {
+                print("Change scene phase to inactive")
+            }
+            if phase == .background {
+                print("Change scene phase to background")
+            }
+        }
+        // iOS 17++ :
+        // .onChange(of: scenePhase) { oldPhase, newPhase in
+        //     if newPhase == .active {
+        //         print("Active")
+        //     } else if newPhase == .inactive {
+        //         print("Inactive")
+        //     } else if newPhase == .background {
+        //         print("Background")
+        //     }
+        // }
     }
 }
+
+
+
+
 
 struct WebView: UIViewRepresentable {
     
