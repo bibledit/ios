@@ -43,6 +43,8 @@ struct ContentView: View {
                     DispatchQueue.main.async {
                         web_view.loadURL(urlString: get_server_url_string())
                     }
+                    // Do not backup the Documents directory to iCloud.
+                    disable_backup_to_icloud ()
                 }
             } else {
                 web_view.loadURL(urlString: get_server_url_string())
