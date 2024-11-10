@@ -18,27 +18,39 @@
 
 import Foundation
 
+// Get the URL where the app has installed its resources.
+// On the simulator this is something like:
+// file:///<home>/Library/Developer/CoreSimulator/Devices/<uri>/data/Containers/Bundle/Application/<uri>/Bibledit.app/
 func resources_url() -> URL
 {
     return URL (fileURLWithPath: Bundle.main.resourcePath!)
 }
 
+
+// Get the URL to the Documents directory.
+// This is a writable area specifically for this app only.
+// Example:
+// file:///<home>/Library/Developer/CoreSimulator/Devices/<uri>/data/Containers/Data/Application/<uri>/Documents/
 func documents_url() -> URL
 {
     return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 }
 
+// The embedded web server's web root directory.
 func webroot_url() -> URL
 {
     return documents_url().appendingPathComponent("webroot")
 
 }
 
+// The version number of the Bibledit kernel software.
 func kernel_software_version() -> String
 {
     return String(cString: bibledit_get_version_number())
 }
 
+// Key used for getting and setting the version number of the installed webroot,
+// as stored in the Swift user data area.
 let version_key = "bibledit-version"
 
 func get_installed_webroot_version() -> String
@@ -51,6 +63,14 @@ func set_installed_webroot_version(version : String) -> Void
     UserDefaults.standard.set(version, forKey: version_key)
 }
 
+// Putting the Bibledit kernel's data into the resources for this app is not handled perfectly in Xcode.
+// It sees most kernel data as resources, which is the right thing to do.
+// But it also omits some kernel data, or sees them as code that should be compiled.
+// To overcome this, the refresh.sh script has encoded all kernel data
+// into specially crafted files with the encoding in their name,
+// resemdling the original files and directory structures.
+// This function decodes them all and results in a webroot data structure
+// the same as the original one before the refresh.sh script encoded that data structure.
 func copy_resources_to_webroot() -> Void
 {
     let dir_hash = "dir#"
@@ -61,8 +81,6 @@ func copy_resources_to_webroot() -> Void
     let file_manager = FileManager.default
     do {
         let filenames = try file_manager.contentsOfDirectory(atPath: resources_url().path())
-        // The refresh.sh script has encoded all directories in the source webroot
-        // to specially crafted files encoding the original directory structure.
         // Decode the desired directories, and create them all in the webroot.
         var created_directory_count = 0
         var existing_directory_count = 0
@@ -100,8 +118,6 @@ func copy_resources_to_webroot() -> Void
         print ("Created", created_directory_count, "directories in the webroot and", existing_directory_count, "directories already existed")
         
         // Once the directories have been created first, now go on with the files in those directories.
-        // The refresh.sh script has encoded all files in the source webroot
-        // to specially crafted files encoding the original file path.
         // Decode the desired files, and create them all in the webroot.
         var file_count = 0
         for resource_filename in filenames {
@@ -144,7 +160,11 @@ func copy_resources_to_webroot() -> Void
 
 func get_server_url_string() -> String
 {
-    "https://bibledit.org:8091" // Todo fix this.
+//    return "https://bibledit.org:8091" // Todo fix this.
+    // Get the port number that the Bibledit kernel will now negotiate to use.
+    let port_number = String(cString: bibledit_get_network_port ())
+    let home_url = "http://localhost:" + port_number + "/"
+    return home_url
 }
 
 func disable_backup_to_icloud() -> Void // Todo write it, call it, test it?

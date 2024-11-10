@@ -18,9 +18,22 @@
 		CAECA9FC2CD67E7C00FFAC5B /* xcode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = xcode.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CAAF5C3E2CE0D9D300635D0D /* Exceptions for "Bibledit" folder in "Bibledit" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CA5E0C4E2CCD6BAE00234D54 /* Bibledit */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CA5E0C512CCD6BAE00234D54 /* Bibledit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CAAF5C3E2CE0D9D300635D0D /* Exceptions for "Bibledit" folder in "Bibledit" target */,
+			);
 			path = Bibledit;
 			sourceTree = "<group>";
 		};
@@ -341,6 +354,7 @@
 				DEVELOPMENT_TEAM = L37WFUB5MH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Bibledit/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -383,6 +397,7 @@
 				DEVELOPMENT_TEAM = L37WFUB5MH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Bibledit/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
