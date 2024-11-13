@@ -97,7 +97,7 @@ struct ContentView: View {
             
             print ("Bibledit kernel version", kernel_software_version())
             print ("Installed webroot version", get_installed_webroot_version())
-            if (kernel_software_version() != get_installed_webroot_version()) { // Todo: !=
+            if (kernel_software_version() != get_installed_webroot_version()) {
                 // Copy the relevant sources to the writable webroot.
                 print ("Copy the resources to the webroot")
                 copy_resources_to_webroot()
