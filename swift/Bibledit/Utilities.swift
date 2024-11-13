@@ -160,16 +160,15 @@ func copy_resources_to_webroot() -> Void
 
 func get_server_url_string() -> String
 {
-//    return "https://bibledit.org:8091" // Todo fix this.
     // Get the port number that the Bibledit kernel will now negotiate to use.
     let port_number = String(cString: bibledit_get_network_port ())
-    let home_url = "http://localhost:" + port_number + "/"
+    let home_url = "http://localhost:" + port_number + "/index/index?mode=advanced" // Todo fix this later: Switch to advanced mode, can be fixed after tabbed mode works again.
     return home_url
 }
 
 func disable_backup_to_icloud() -> Void // Todo write it, call it, test it?
 {
-    // Disable the entire webroot folder from being backed up to iCloud.
+    // Disable the entire Documents folder from being backed up to iCloud.
     // The reason is that if it were included,
     // the size of the backup would be larger than what Apple allows.
     
