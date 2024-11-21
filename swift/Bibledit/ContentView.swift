@@ -2,9 +2,16 @@ import SwiftUI
 import WebKit
 import Combine
 
-let web_view = WebView()
+var first_active_scene_phase_done = false
+var first_webview_appear_done = false
 
-var first_activating = true
+let about_blank : String = "about:blank"
+
+let webview_advanced : WebView = WebView()
+let webview_translate : WebView = WebView()
+let webview_resources : WebView = WebView()
+let webview_notes : WebView = WebView()
+let webview_settings : WebView = WebView()
 
 struct ContentView: View {
 
@@ -13,37 +20,68 @@ struct ContentView: View {
     // This timer fires long enough in the future that the .onAppear() call comes before it fires, see below.
     @State var startup_timer = Timer.publish(every: 5, tolerance: 0.5, on: .main, in: .common).autoconnect()
 
-    // This timer fire long enough in the future that the installation routine will have been completed before it fires.
+    // This timer fires long enough in the future that the installation routine will have been completed before it fires.
     @State var repetitive_timer = Timer.publish(every: 60, tolerance: 0.5, on: .main, in: .common).autoconnect()
 
-    var body: some View {
-        VStack {
-            web_view
-        }
-        .onAppear(){
+    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 
-            // When the webview appears, it shows a "loading" splash screen.
-            let index_html : URL = URL(fileURLWithPath: Bundle.main.path(forResource: "loading", ofType: "html")!)
-            web_view.loadURL(urlString: String(describing: index_html))
-            
-            // Shortly after displaying the splash screen, the install and startup routine will begin,
-            // triggered by this timer.
-            startup_timer = Timer.publish(every: 1, tolerance: 0.5, on: .main, in: .common).autoconnect()
+    @State var enable_basic_view: Bool = false
+
+    var body: some View {
+        NavigationStack {
+            webview_advanced
+                .navigationDestination(isPresented: $enable_basic_view) {
+                    BasicView()
+                        .navigationBarBackButtonHidden(true)
+                        .onAppear() {
+                            print ("BasicView.onAppear")
+                            webview_advanced.loadURL(urlString: about_blank)
+                            webview_translate.loadURL(urlString: "https://bibledit.org:8091/editone2/index")
+                            webview_resources.loadURL(urlString: "https://bibledit.org:8091/resource/index")
+                            webview_notes.loadURL(urlString: "https://bibledit.org:8091/notes/index")
+                            webview_settings.loadURL(urlString: "https://bibledit.org:8091/index/index?item=settings")
+                        }
+                }
+                .onAppear() {
+                    print ("webview_advanced.onAppear")
+                    if first_webview_appear_done {
+                        webview_translate.loadURL(urlString: about_blank)
+                        webview_resources.loadURL(urlString: about_blank)
+                        webview_notes.loadURL(urlString: about_blank)
+                        webview_settings.loadURL(urlString: about_blank)
+                        webview_advanced.loadURL(urlString: "https://bibledit.org:8091")
+                    } else {
+
+                        // When the advanced webview appears, it shows a "loading" splash screen.
+                        let index_html : URL = URL(fileURLWithPath: Bundle.main.path(forResource: "loading", ofType: "html")!)
+                        webview_advanced.loadURL(urlString: String(describing: index_html))
+                        
+                        // Shortly after displaying the splash screen, the install and startup routine will begin,
+                        // triggered by this timer.
+                        startup_timer = Timer.publish(every: 1, tolerance: 0.5, on: .main, in: .common).autoconnect()
+                    }
+
+                    first_webview_appear_done = true
+                }
+        }
+
+        .onReceive(timer) { input in
+//             enable_second_view.toggle()
+        }
+
+        .onAppear(){
+            print ("NavigationStack.onAppear")
         }
         .onDisappear(){
-            print ("on disappear")
+            print ("NavigationStack.onDisappear")
         }
         .onChange(of: scenePhase) { phase in
             if phase == .active {
                 print("Change scene phase to active")
-                if first_activating {
-                    first_activating = false
-                }
-                else {
-                    // Error binding server to socket: Address already in use: Todo
+                if first_active_scene_phase_done {
                     bibledit_start_library ();
                     
-                    let web_url : String = web_view.webView.url?.absoluteString ?? ""
+                    let web_url : String = webview_advanced.webView.url?.absoluteString ?? ""
                     //                let index = web_url.index(web_url.startIndex, offsetBy: 21)
                     //                let bit : String = web_url.substring(to: index)
                     //                print (web_url)
@@ -53,7 +91,7 @@ struct ContentView: View {
                     //                let bit2 : String = String(web_url.prefix(21))
                     //                print (bit2)
                     // Reload the loaded page, just to be sure that everything works.
-                    web_view.loadURL(urlString: web_url)
+                    webview_advanced.loadURL(urlString: web_url)
                     
                     // Previous, Objective-C, app had this:
                     //BOOL equal = [bit isEqualToString:homeUrl];
@@ -64,8 +102,8 @@ struct ContentView: View {
                     //    // Reload the loaded page, just to be sure that everything works.
                     //    [BibleditController bibleditBrowseTo:path];
                     //}
-
                 }
+                first_active_scene_phase_done = true
             }
             if phase == .inactive {
                 print("Change scene phase to inactive")
@@ -96,7 +134,7 @@ struct ContentView: View {
             print ("Webroot URL", webroot_url())
             
             print ("Bibledit kernel version", kernel_software_version())
-            print ("Installed webroot version", get_installed_webroot_version())
+            print ("Webroot version", get_installed_webroot_version())
             if (kernel_software_version() != get_installed_webroot_version()) {
                 // Copy the relevant sources to the writable webroot.
                 print ("Copy the resources to the webroot")
@@ -124,7 +162,7 @@ struct ContentView: View {
             sleep (1)
 
             // Things are ready, show the UI.
-            web_view.loadURL(urlString: get_server_url_string())
+            webview_advanced.loadURL(urlString: get_server_url_string())
 
             // Invalidate the timer.
             startup_timer.upstream.connect().cancel()
@@ -163,6 +201,34 @@ struct ContentView: View {
         })
 
     }
+    
+    init() {
+        
+    }
+}
+
+
+struct BasicView: View {
+    var body: some View {
+        TabView {
+            webview_translate
+                .tabItem {
+                    Label("Translate", systemImage: "doc")
+                }
+            webview_resources
+                .tabItem {
+                    Label("Resources", systemImage: "book")
+                }
+            webview_notes
+                .tabItem {
+                    Label("Notes", systemImage: "note")
+                }
+            webview_settings
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+        }
+    }
 }
 
 
@@ -196,27 +262,3 @@ struct WebView: UIViewRepresentable {
         webView.load(URLRequest(url: URL(string: urlString)!))
     }
 }
-
-
-//class MemoryPressureMonitor {
-//    static let shared = MemoryPressureMonitor()
-//    private let dispatchSource = DispatchSource.makeMemoryPressureSource(eventMask: [.warning, .critical])
-//    private init() {
-//        dispatchSource.setEventHandler { [weak self] in
-//            if let event = self?.dispatchSource.data,  self?.dispatchSource.isCancelled == false {
-//                switch event {
-//                case .warning:
-//                    print("MemoryPressureMonitor: Low memory warning")
-//                case.critical:
-//                    print("MemoryPressureMonitor: Critical memory warning")
-//                default:
-//                    print("MemoryPressureMonitor: Unknown Event")
-//                }
-//            }
-//        }
-//        dispatchSource.activate()
-//    }
-//    deinit {
-//        dispatchSource.cancel()
-//    }
-//}
