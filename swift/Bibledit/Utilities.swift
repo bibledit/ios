@@ -16,7 +16,9 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+
 import Foundation
+
 
 // Get the URL where the app has installed its resources.
 // On the simulator this is something like:
@@ -36,18 +38,20 @@ func documents_url() -> URL
     return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 }
 
+
 // The embedded web server's web root directory.
 func webroot_url() -> URL
 {
     return documents_url().appendingPathComponent("webroot")
-
 }
+
 
 // The version number of the Bibledit kernel software.
 func kernel_software_version() -> String
 {
     return String(cString: bibledit_get_version_number())
 }
+
 
 // Key used for getting and setting the version number of the installed webroot,
 // as stored in the Swift user data area.
@@ -62,6 +66,7 @@ func set_installed_webroot_version(version : String) -> Void
 {
     UserDefaults.standard.set(version, forKey: version_key)
 }
+
 
 // Putting the Bibledit kernel's data into the resources for this app is not handled perfectly in Xcode.
 // It sees most kernel data as resources, which is the right thing to do.
@@ -158,13 +163,48 @@ func copy_resources_to_webroot() -> Void
     }
 }
 
-func get_server_url_string() -> String
+
+var port_number : String = ""
+func get_port_number() -> String
 {
-    // Get the port number that the Bibledit kernel will now negotiate to use.
-    let port_number = String(cString: bibledit_get_network_port ())
-    let home_url = "http://localhost:" + port_number + "/index/index?mode=advanced" // Todo fix this later: Switch to advanced mode, can be fixed after tabbed mode works again.
-    return home_url
+    if port_number.isEmpty {
+        // Get the port number that the Bibledit kernel will now negotiate to use.
+        // Be sure to get this before the embedded web server runs, to get the right result.
+        port_number = String(cString: bibledit_get_network_port ())
+    }
+    return port_number
 }
+
+
+func get_advanced_mode_url_string() -> String
+{
+    return "http://localhost:" + get_port_number() + "/index/index?mode=advanced" // Todo fix this later: Switch to advanced mode, can be fixed after tabbed mode works again.
+}
+
+
+func get_basic_mode_translate_url_string() -> String
+{
+    return "http://localhost:" + get_port_number() + "/editone2/index"
+}
+
+
+func get_basic_mode_resources_url_string() -> String
+{
+    return "http://localhost:" + get_port_number() + "/resource/index"
+}
+
+
+func get_basic_mode_notes_url_string() -> String
+{
+    return "http://localhost:" + get_port_number() + "/notes/index"
+}
+
+
+func get_basic_mode_settings_url_string() -> String
+{
+    return "http://localhost:" + get_port_number() + "/personalize/index"
+}
+
 
 func disable_backup_to_icloud() -> Void // Todo write it, call it, test it?
 {

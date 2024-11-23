@@ -1,6 +1,8 @@
 import SwiftUI
 import WebKit
 import Combine
+import Foundation
+
 
 var first_active_scene_phase_done = false
 var first_webview_appear_done = false
@@ -13,6 +15,15 @@ let webview_resources : WebView = WebView()
 let webview_notes : WebView = WebView()
 let webview_settings : WebView = WebView()
 
+var previous_tabs_state : String = ""
+
+let json_decoder = JSONDecoder()
+
+struct TabState: Codable {
+    var label: String
+    var url: String
+}
+
 struct ContentView: View {
 
     @Environment(\.scenePhase) var scenePhase
@@ -23,24 +34,43 @@ struct ContentView: View {
     // This timer fires long enough in the future that the installation routine will have been completed before it fires.
     @State var repetitive_timer = Timer.publish(every: 60, tolerance: 0.5, on: .main, in: .common).autoconnect()
 
-    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-
     @State var enable_basic_view: Bool = false
 
     var body: some View {
         NavigationStack {
             webview_advanced
                 .navigationDestination(isPresented: $enable_basic_view) {
-                    BasicView()
-                        .navigationBarBackButtonHidden(true)
-                        .onAppear() {
-                            print ("BasicView.onAppear")
-                            webview_advanced.loadURL(urlString: about_blank)
-                            webview_translate.loadURL(urlString: "https://bibledit.org:8091/editone2/index")
-                            webview_resources.loadURL(urlString: "https://bibledit.org:8091/resource/index")
-                            webview_notes.loadURL(urlString: "https://bibledit.org:8091/notes/index")
-                            webview_settings.loadURL(urlString: "https://bibledit.org:8091/index/index?item=settings")
-                        }
+                    TabView {
+                        webview_translate
+                            .tabItem {
+                                Label("Translate", systemImage: "doc")
+                            }
+                        webview_resources
+                            .tabItem {
+                                Label("Resources", systemImage: "book")
+                            }
+                        webview_notes
+                            .tabItem {
+                                Label("Notes", systemImage: "note")
+                            }
+                        webview_settings
+                            .tabItem {
+                                Label("Settings", systemImage: "gear")
+                            }
+                            .onAppear() {
+                                print ("the settings tab appears")
+                            }
+                    }
+                    .navigationBarBackButtonHidden(true)
+                    .onAppear() {
+                        print ("TabView.onAppear")
+                        webview_advanced.loadURL(urlString: about_blank)
+                        // Tpdo fix to localhost, duh.
+                        webview_translate.loadURL(urlString: get_basic_mode_translate_url_string())
+                        webview_resources.loadURL(urlString: get_basic_mode_resources_url_string())
+                        webview_notes.loadURL(urlString: get_basic_mode_notes_url_string())
+                        webview_settings.loadURL(urlString: get_basic_mode_settings_url_string())
+                    }
                 }
                 .onAppear() {
                     print ("webview_advanced.onAppear")
@@ -49,7 +79,7 @@ struct ContentView: View {
                         webview_resources.loadURL(urlString: about_blank)
                         webview_notes.loadURL(urlString: about_blank)
                         webview_settings.loadURL(urlString: about_blank)
-                        webview_advanced.loadURL(urlString: "https://bibledit.org:8091")
+                        webview_advanced.loadURL(urlString: get_advanced_mode_url_string())
                     } else {
 
                         // When the advanced webview appears, it shows a "loading" splash screen.
@@ -63,10 +93,6 @@ struct ContentView: View {
 
                     first_webview_appear_done = true
                 }
-        }
-
-        .onReceive(timer) { input in
-//             enable_second_view.toggle()
         }
 
         .onAppear(){
@@ -162,7 +188,7 @@ struct ContentView: View {
             sleep (1)
 
             // Things are ready, show the UI.
-            webview_advanced.loadURL(urlString: get_server_url_string())
+            webview_advanced.loadURL(urlString: get_advanced_mode_url_string())
 
             // Invalidate the timer.
             startup_timer.upstream.connect().cancel()
@@ -172,7 +198,26 @@ struct ContentView: View {
         }
 
         .onReceive(repetitive_timer) { time in
-            //print ("repetitive timer")
+            let tabs_state : String = String(cString: bibledit_get_pages_to_open ())
+            //print ("tabs state length:", tabs_state.count)
+            if (tabs_state != previous_tabs_state) {
+                previous_tabs_state = tabs_state
+                //print ("tabs state:", tabs_state)
+                let json = tabs_state.data(using: .utf8)!
+                do {
+                    // If the JSON array contains an element that isn't a TabState instance,
+                    // the entire decoding fails.
+                    let tabs = try json_decoder.decode([TabState].self, from: json)
+                    print("tabs count: ", tabs.count)
+                    for tab in tabs {
+                        //print(tab.label, tab.url)
+                    }
+                    enable_basic_view = true
+                } catch {
+                    enable_basic_view = false
+                }
+                print (enable_basic_view ? "enable basic view" : "enabling advanced view")
+            }
         }
         
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification), perform: { output in
@@ -203,7 +248,8 @@ struct ContentView: View {
     }
     
     init() {
-        
+        // Get the port number once before the embedded webserver runs.
+        _ = get_port_number()
     }
 }
 
@@ -226,6 +272,9 @@ struct BasicView: View {
             webview_settings
                 .tabItem {
                     Label("Settings", systemImage: "gear")
+                }
+                .onAppear() {
+                    print ("the settings tab appears")
                 }
         }
     }
