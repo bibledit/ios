@@ -65,7 +65,6 @@ struct ContentView: View {
                     .onAppear() {
                         print ("TabView.onAppear")
                         webview_advanced.loadURL(urlString: about_blank)
-                        // Tpdo fix to localhost, duh.
                         webview_translate.loadURL(urlString: get_basic_mode_translate_url_string())
                         webview_resources.loadURL(urlString: get_basic_mode_resources_url_string())
                         webview_notes.loadURL(urlString: get_basic_mode_notes_url_string())
@@ -73,7 +72,7 @@ struct ContentView: View {
                     }
                 }
                 .onAppear() {
-                    print ("webview_advanced.onAppear")
+                    print ("WebView.onAppear")
                     if first_webview_appear_done {
                         webview_translate.loadURL(urlString: about_blank)
                         webview_resources.loadURL(urlString: about_blank)
@@ -209,9 +208,13 @@ struct ContentView: View {
                     // the entire decoding fails.
                     let tabs = try json_decoder.decode([TabState].self, from: json)
                     print("tabs count: ", tabs.count)
-                    for tab in tabs {
-                        //print(tab.label, tab.url)
-                    }
+                    //for tab in tabs {
+                    //    print(tab.label, tab.url)
+                    //}
+                    basic_mode_translate_url_fragment = tabs[0].url
+                    basic_mode_resources_url_fragment = tabs[1].url
+                    basic_mode_notes_url_fragment     = tabs[2].url
+                    basic_mode_settings_url_fragment  = tabs[3].url
                     enable_basic_view = true
                 } catch {
                     enable_basic_view = false

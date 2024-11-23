@@ -20,6 +20,14 @@
 import Foundation
 
 
+// The URL fragments for the four tabs in basic mode.
+// These have default values, and get updated from the Bibledit kernel as needed.
+var basic_mode_translate_url_fragment : String = "editone2/index"
+var basic_mode_resources_url_fragment : String = "resource/index"
+var basic_mode_notes_url_fragment     : String = "notes/index"
+var basic_mode_settings_url_fragment  : String = "personalize/index"
+
+
 // Get the URL where the app has installed its resources.
 // On the simulator this is something like:
 // file:///<home>/Library/Developer/CoreSimulator/Devices/<uri>/data/Containers/Bundle/Application/<uri>/Bibledit.app/
@@ -184,25 +192,25 @@ func get_advanced_mode_url_string() -> String
 
 func get_basic_mode_translate_url_string() -> String
 {
-    return "http://localhost:" + get_port_number() + "/editone2/index"
+    return "http://localhost:" + get_port_number() + "/" + basic_mode_translate_url_fragment
 }
 
 
 func get_basic_mode_resources_url_string() -> String
 {
-    return "http://localhost:" + get_port_number() + "/resource/index"
+    return "http://localhost:" + get_port_number() + "/" + basic_mode_resources_url_fragment
 }
 
 
 func get_basic_mode_notes_url_string() -> String
 {
-    return "http://localhost:" + get_port_number() + "/notes/index"
+    return "http://localhost:" + get_port_number() + "/" + basic_mode_notes_url_fragment
 }
 
 
 func get_basic_mode_settings_url_string() -> String
 {
-    return "http://localhost:" + get_port_number() + "/personalize/index"
+    return "http://localhost:" + get_port_number() + "/" + basic_mode_settings_url_fragment
 }
 
 
