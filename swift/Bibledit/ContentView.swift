@@ -35,6 +35,12 @@ struct ContentView: View {
     @State var repetitive_timer = Timer.publish(every: 60, tolerance: 0.5, on: .main, in: .common).autoconnect()
 
     @State var enable_basic_view: Bool = false
+    
+    // The labels for the four or five tabs of the basic mode.
+    @State var basic_mode_translate_label : String = "Translate"
+    @State var basic_mode_resources_label : String = "Resources"
+    @State var basic_mode_notes_label     : String = "Notes"
+    @State var basic_mode_settings_label  : String = "Settings"
 
     var body: some View {
         NavigationStack {
@@ -43,19 +49,19 @@ struct ContentView: View {
                     TabView {
                         webview_translate
                             .tabItem {
-                                Label("Translate", systemImage: "doc")
+                                Label(basic_mode_translate_label, systemImage: "doc")
                             }
                         webview_resources
                             .tabItem {
-                                Label("Resources", systemImage: "book")
+                                Label(basic_mode_resources_label, systemImage: "book")
                             }
                         webview_notes
                             .tabItem {
-                                Label("Notes", systemImage: "note")
+                                Label(basic_mode_notes_label, systemImage: "note")
                             }
                         webview_settings
                             .tabItem {
-                                Label("Settings", systemImage: "gear")
+                                Label(basic_mode_settings_label, systemImage: "gear")
                             }
                             .onAppear() {
                                 print ("the settings tab appears")
@@ -211,9 +217,13 @@ struct ContentView: View {
                     //for tab in tabs {
                     //    print(tab.label, tab.url)
                     //}
+                    basic_mode_translate_label        = tabs[0].label
                     basic_mode_translate_url_fragment = tabs[0].url
+                    basic_mode_resources_label        = tabs[1].label
                     basic_mode_resources_url_fragment = tabs[1].url
+                    basic_mode_notes_label            = tabs[2].label
                     basic_mode_notes_url_fragment     = tabs[2].url
+                    basic_mode_settings_label         = tabs[3].label
                     basic_mode_settings_url_fragment  = tabs[3].url
                     enable_basic_view = true
                 } catch {
