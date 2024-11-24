@@ -196,41 +196,37 @@ func get_url_string(url_fragment : String) -> String
 
 func get_advanced_mode_url_string() -> String
 {
-    return "http://localhost:" + get_port_number() + "/index/index"
-    // Todo use central function
+    return get_url_string(url_fragment: "index/index")
 }
 
 
 func get_basic_mode_url_1() -> String // Todo use central function
 {
-    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_1
+    return get_url_string(url_fragment: basic_mode_url_fragment_1)
 }
 
 
 func get_basic_mode_url_2() -> String //  Todo use central function
 {
-    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_2
+    return get_url_string(url_fragment: basic_mode_url_fragment_2)
 }
 
 
 func get_basic_mode_url_3() -> String//  Todo use central function
 {
-    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_3
+    return get_url_string(url_fragment: basic_mode_url_fragment_3)
 }
 
 
 func get_basic_mode_url_4() -> String//  Todo use central function
 {
-    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_4
+    return get_url_string(url_fragment: basic_mode_url_fragment_4)
 }
 
 
 func get_basic_mode_url_5() -> String //  Todo use central function
 {
-    if basic_mode_url_fragment_5.isEmpty {
-        return ""
-    }
-    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_5
+    return get_url_string(url_fragment: basic_mode_url_fragment_5)
 }
 
 
