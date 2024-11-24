@@ -9,17 +9,18 @@ var first_webview_appear_done = false
 
 let about_blank : String = "about:blank"
 
-let webview_advanced : WebView = WebView()
-let webview_translate : WebView = WebView()
-let webview_resources : WebView = WebView()
-let webview_notes : WebView = WebView()
-let webview_settings : WebView = WebView()
+let advanced_webview : WebView = WebView()
+let basic_webview_1  : WebView = WebView()
+let basic_webview_2  : WebView = WebView()
+let basic_webview_3  : WebView = WebView()
+let basic_webview_4  : WebView = WebView()
+let basic_webview_5  : WebView = WebView()
 
 var previous_tabs_state : String = ""
 
 let json_decoder = JSONDecoder()
 
-struct TabState: Codable {
+struct TabState: Decodable {
     var label: String
     var url: String
 }
@@ -35,65 +36,94 @@ struct ContentView: View {
     @State var repetitive_timer = Timer.publish(every: 60, tolerance: 0.5, on: .main, in: .common).autoconnect()
 
     @State var enable_basic_view: Bool = false
+    @State var enable_tab_5 : Bool = false
     
-    // The labels for the four or five tabs of the basic mode.
-    @State var basic_mode_translate_label : String = "Translate"
-    @State var basic_mode_resources_label : String = "Resources"
-    @State var basic_mode_notes_label     : String = "Notes"
-    @State var basic_mode_settings_label  : String = "Settings"
+    // The labels for the tabs of the basic mode.
+    @State var basic_mode_label_1 : String = "Translate"
+    @State var basic_mode_label_2 : String = "Resources"
+    @State var basic_mode_label_3 : String = "Notes"
+    @State var basic_mode_label_4 : String = "Settings"
+    @State var basic_mode_label_5 : String = ""
 
     var body: some View {
         NavigationStack {
-            webview_advanced
+            advanced_webview
                 .navigationDestination(isPresented: $enable_basic_view) {
                     TabView {
-                        webview_translate
+                        basic_webview_1
                             .tabItem {
-                                Label(basic_mode_translate_label, systemImage: "doc")
+                                Label(basic_mode_label_1, systemImage: "doc")
                             }
-                        webview_resources
-                            .tabItem {
-                                Label(basic_mode_resources_label, systemImage: "book")
+                            .onAppear() {
+                                if basic_webview_1.webView.url?.absoluteString != get_basic_mode_url_1() {
+                                    basic_webview_1.loadURL(urlString: get_basic_mode_url_1())
+                                }
                             }
-                        webview_notes
+                        basic_webview_2
                             .tabItem {
-                                Label(basic_mode_notes_label, systemImage: "note")
+                                Label(basic_mode_label_2, systemImage: "book")
                             }
-                        webview_settings
+                            .onAppear() {
+                                if basic_webview_2.webView.url?.absoluteString != get_basic_mode_url_2() {
+                                    basic_webview_2.loadURL(urlString: get_basic_mode_url_2())
+                                }
+                            }
+                        basic_webview_3
                             .tabItem {
-                                Label(basic_mode_settings_label, systemImage: "gear")
+                                Label(basic_mode_label_3, systemImage: "note")
+                            }
+                            .onAppear() {
+                                if basic_webview_3.webView.url?.absoluteString != get_basic_mode_url_3() {
+                                    basic_webview_3.loadURL(urlString: get_basic_mode_url_3())
+                                }
+                            }
+                        basic_webview_4
+                            .tabItem {
+                                Label(basic_mode_label_4, systemImage: "gear")
                             }
                             .onAppear() {
                                 // If the Settings tab appears, reset the loaded page to its default settings.
                                 // This is needed because if on another page currently,
                                 // since there's no menu, the user cannot return to the main settings page.
                                 // Reloading the default page resolves this.
-                                webview_settings.loadURL(urlString: get_basic_mode_settings_url_string())
+                                if basic_webview_4.webView.url?.absoluteString != get_basic_mode_url_4() || is_settings_url(url: get_basic_mode_url_4()) {
+                                    basic_webview_4.loadURL(urlString: get_basic_mode_url_4())
+                                }
                             }
+                        if enable_tab_5 {
+                            basic_webview_5
+                                .tabItem {
+                                    Label(basic_mode_label_5, systemImage: "gear")
+                                }
+                                .onAppear() {
+                                    // See comment on the above tab: Reload it this tab shows the Settings page.
+                                    if basic_webview_5.webView.url?.absoluteString != get_basic_mode_url_5() || is_settings_url(url: get_basic_mode_url_5()) {
+                                        basic_webview_5.loadURL(urlString: get_basic_mode_url_5())
+                                    }
+                                    // Todo load and check on load, compare.
+                                }
+                        }
                     }
                     .navigationBarBackButtonHidden(true)
                     .onAppear() {
                         print ("TabView.onAppear")
-                        webview_advanced.loadURL(urlString: about_blank)
-                        webview_translate.loadURL(urlString: get_basic_mode_translate_url_string())
-                        webview_resources.loadURL(urlString: get_basic_mode_resources_url_string())
-                        webview_notes.loadURL(urlString: get_basic_mode_notes_url_string())
-                        webview_settings.loadURL(urlString: get_basic_mode_settings_url_string())
+                        advanced_webview.loadURL(urlString: about_blank)
                     }
                 }
                 .onAppear() {
                     print ("WebView.onAppear")
                     if first_webview_appear_done {
-                        webview_translate.loadURL(urlString: about_blank)
-                        webview_resources.loadURL(urlString: about_blank)
-                        webview_notes.loadURL(urlString: about_blank)
-                        webview_settings.loadURL(urlString: about_blank)
-                        webview_advanced.loadURL(urlString: get_advanced_mode_url_string())
+                        basic_webview_1.loadURL(urlString: about_blank)
+                        basic_webview_2.loadURL(urlString: about_blank)
+                        basic_webview_3.loadURL(urlString: about_blank)
+                        basic_webview_4.loadURL(urlString: about_blank)
+                        basic_webview_5.loadURL(urlString: about_blank)
+                        advanced_webview.loadURL(urlString: get_advanced_mode_url_string())
                     } else {
 
                         // When the advanced webview appears, it shows a "loading" splash screen.
                         let index_html : URL = URL(fileURLWithPath: Bundle.main.path(forResource: "loading", ofType: "html")!)
-                        webview_advanced.loadURL(urlString: String(describing: index_html))
+                        advanced_webview.loadURL(urlString: String(describing: index_html))
                         
                         // Shortly after displaying the splash screen, the install and startup routine will begin,
                         // triggered by this timer.
@@ -116,7 +146,7 @@ struct ContentView: View {
                 if first_active_scene_phase_done {
                     bibledit_start_library ();
                     
-                    let web_url : String = webview_advanced.webView.url?.absoluteString ?? ""
+                    let web_url : String = advanced_webview.webView.url?.absoluteString ?? ""
                     //                let index = web_url.index(web_url.startIndex, offsetBy: 21)
                     //                let bit : String = web_url.substring(to: index)
                     //                print (web_url)
@@ -126,7 +156,7 @@ struct ContentView: View {
                     //                let bit2 : String = String(web_url.prefix(21))
                     //                print (bit2)
                     // Reload the loaded page, just to be sure that everything works.
-                    webview_advanced.loadURL(urlString: web_url)
+                    advanced_webview.loadURL(urlString: web_url)
                     
                     // Previous, Objective-C, app had this:
                     //BOOL equal = [bit isEqualToString:homeUrl];
@@ -197,7 +227,7 @@ struct ContentView: View {
             sleep (1)
 
             // Things are ready, show the UI.
-            webview_advanced.loadURL(urlString: get_advanced_mode_url_string())
+            advanced_webview.loadURL(urlString: get_advanced_mode_url_string())
 
             // Invalidate the timer.
             startup_timer.upstream.connect().cancel()
@@ -211,24 +241,29 @@ struct ContentView: View {
             //print ("tabs state length:", tabs_state.count)
             if (tabs_state != previous_tabs_state) {
                 previous_tabs_state = tabs_state
-                //print ("tabs state:", tabs_state)
                 let json = tabs_state.data(using: .utf8)!
                 do {
                     // If the JSON array contains an element that isn't a TabState instance,
                     // the entire decoding fails.
                     let tabs = try json_decoder.decode([TabState].self, from: json)
-                    print("tabs count: ", tabs.count)
-                    //for tab in tabs {
-                    //    print(tab.label, tab.url)
-                    //}
-                    basic_mode_translate_label        = tabs[0].label
-                    basic_mode_translate_url_fragment = tabs[0].url
-                    basic_mode_resources_label        = tabs[1].label
-                    basic_mode_resources_url_fragment = tabs[1].url
-                    basic_mode_notes_label            = tabs[2].label
-                    basic_mode_notes_url_fragment     = tabs[2].url
-                    basic_mode_settings_label         = tabs[3].label
-                    basic_mode_settings_url_fragment  = tabs[3].url
+                    basic_mode_label_1        = tabs[0].label
+                    basic_mode_url_fragment_1 = tabs[0].url
+                    basic_mode_label_2        = tabs[1].label
+                    basic_mode_url_fragment_2 = tabs[1].url
+                    basic_mode_label_3        = tabs[2].label
+                    basic_mode_url_fragment_3 = tabs[2].url
+                    basic_mode_label_4        = tabs[3].label
+                    basic_mode_url_fragment_4 = tabs[3].url
+                    if tabs.count >= 5 {
+                        basic_mode_label_5        = tabs[4].label
+                        basic_mode_url_fragment_5 = tabs[4].url
+                        enable_tab_5 = true
+                    } else {
+                        basic_mode_label_5 = ""
+                        basic_mode_url_fragment_5 = ""
+
+                        enable_tab_5 = false
+                    }
                     enable_basic_view = true
                 } catch {
                     enable_basic_view = false
@@ -274,19 +309,19 @@ struct ContentView: View {
 struct BasicView: View {
     var body: some View {
         TabView {
-            webview_translate
+            basic_webview_1
                 .tabItem {
                     Label("Translate", systemImage: "doc")
                 }
-            webview_resources
+            basic_webview_2
                 .tabItem {
                     Label("Resources", systemImage: "book")
                 }
-            webview_notes
+            basic_webview_3
                 .tabItem {
                     Label("Notes", systemImage: "note")
                 }
-            webview_settings
+            basic_webview_4
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }

@@ -22,10 +22,11 @@ import Foundation
 
 // The URL fragments for the four tabs in basic mode.
 // These have default values, and get updated from the Bibledit kernel as needed.
-var basic_mode_translate_url_fragment : String = "editone2/index"
-var basic_mode_resources_url_fragment : String = "resource/index"
-var basic_mode_notes_url_fragment     : String = "notes/index"
-var basic_mode_settings_url_fragment  : String = "personalize/index"
+var basic_mode_url_fragment_1 : String = "editone2/index"
+var basic_mode_url_fragment_2 : String = "resource/index"
+var basic_mode_url_fragment_3 : String = "notes/index"
+var basic_mode_url_fragment_4 : String = "personalize/index"
+var basic_mode_url_fragment_5 : String = ""
 
 
 // Get the URL where the app has installed its resources.
@@ -184,33 +185,58 @@ func get_port_number() -> String
 }
 
 
+func get_url_string(url_fragment : String) -> String
+{
+    if url_fragment.isEmpty {
+        return ""
+    }
+    return "http://localhost:" + get_port_number() + "/" + url_fragment
+}
+
+
 func get_advanced_mode_url_string() -> String
 {
-    return "http://localhost:" + get_port_number() + "/index/index?mode=advanced" // Todo fix this later: Switch to advanced mode, can be fixed after tabbed mode works again.
+    return "http://localhost:" + get_port_number() + "/index/index"
+    // Todo use central function
 }
 
 
-func get_basic_mode_translate_url_string() -> String
+func get_basic_mode_url_1() -> String // Todo use central function
 {
-    return "http://localhost:" + get_port_number() + "/" + basic_mode_translate_url_fragment
+    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_1
 }
 
 
-func get_basic_mode_resources_url_string() -> String
+func get_basic_mode_url_2() -> String //  Todo use central function
 {
-    return "http://localhost:" + get_port_number() + "/" + basic_mode_resources_url_fragment
+    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_2
 }
 
 
-func get_basic_mode_notes_url_string() -> String
+func get_basic_mode_url_3() -> String//  Todo use central function
 {
-    return "http://localhost:" + get_port_number() + "/" + basic_mode_notes_url_fragment
+    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_3
 }
 
 
-func get_basic_mode_settings_url_string() -> String
+func get_basic_mode_url_4() -> String//  Todo use central function
 {
-    return "http://localhost:" + get_port_number() + "/" + basic_mode_settings_url_fragment
+    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_4
+}
+
+
+func get_basic_mode_url_5() -> String //  Todo use central function
+{
+    if basic_mode_url_fragment_5.isEmpty {
+        return ""
+    }
+    return "http://localhost:" + get_port_number() + "/" + basic_mode_url_fragment_5
+}
+
+
+func is_settings_url(url : String) -> Bool // Todo use this.
+{
+    return url.contains("personalize")
 }
 
 
