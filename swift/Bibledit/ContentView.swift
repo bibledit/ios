@@ -64,7 +64,11 @@ struct ContentView: View {
                                 Label(basic_mode_settings_label, systemImage: "gear")
                             }
                             .onAppear() {
-                                print ("the settings tab appears")
+                                // If the Settings tab appears, reset the loaded page to its default settings.
+                                // This is needed because if on another page currently,
+                                // since there's no menu, the user cannot return to the main settings page.
+                                // Reloading the default page resolves this.
+                                webview_settings.loadURL(urlString: get_basic_mode_settings_url_string())
                             }
                     }
                     .navigationBarBackButtonHidden(true)
