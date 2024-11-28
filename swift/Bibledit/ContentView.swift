@@ -4,6 +4,13 @@ import Combine
 import Foundation
 
 
+// Keep the previous tabs state.
+// Ensure the next tabs obtained from the Bibledit kernel will trigger a view switch.
+// Do that by initializing it with a value that differs from any possible tabs state.
+var previous_tabs_state : String = "init"
+
+var first_active_scene_phase_done = false
+
 let about_blank : String = "about:blank"
 
 let single_webview : WebView = WebView()
@@ -26,21 +33,16 @@ struct TabState: Decodable {
     var url: String
 }
 
-// Keep the previous tabs state.
-// Ensure the next tabs obtained from the Bibledit kernel will trigger a view switch.
-// Do that by initializing it with a value that differs from any possible tabs state.
-var previous_tabs_state : String = "init"
-
-var first_active_scene_phase_done = false
+var previous_tab_count = 0
 
 struct ContentView: View {
-    
+
     @Environment(\.scenePhase) var scene_phase
 
     @State var view_state : ViewState = ViewState.splash
 
     // This timer fires long enough in the future that the .onAppear() call comes before it fires, see below.
-    @State var startup_timer = Timer.publish(every: 5, tolerance: 0.5, on: .main, in: .common).autoconnect()
+    @State var startup_timer = Timer.publish(every: 60, tolerance: 0.5, on: .main, in: .common).autoconnect()
 
     // This timer fires long enough in the future that the installation routine will have been completed before it fires.
     @State var repetitive_timer = Timer.publish(every: 60, tolerance: 0.5, on: .main, in: .common).autoconnect()
@@ -52,6 +54,8 @@ struct ContentView: View {
     @State var basic_mode_label_4 : String = "Settings"
     @State var basic_mode_label_5 : String = ""
     @State var basic_mode_enable_tab_5 : Bool = false
+    
+    @State var basic_mode_tab_number : Int = 1
     
     var body: some View {
         VStack {
@@ -86,11 +90,12 @@ struct ContentView: View {
             
             // Basic mode.
             if view_state == ViewState.tabs {
-                TabView {
+                TabView (selection: $basic_mode_tab_number) {
                     tabs_webview_1
                         .tabItem {
                             Label(basic_mode_label_1, systemImage: "doc")
                         }
+                        .tag(1)
                         .onAppear() {
                             if tabs_webview_1.webView.url?.absoluteString != get_basic_mode_url_1() {
                                 tabs_webview_1.loadURL(urlString: get_basic_mode_url_1())
@@ -100,6 +105,7 @@ struct ContentView: View {
                         .tabItem {
                             Label(basic_mode_label_2, systemImage: "book")
                         }
+                        .tag(2)
                         .onAppear() {
                             if tabs_webview_2.webView.url?.absoluteString != get_basic_mode_url_2() {
                                 tabs_webview_2.loadURL(urlString: get_basic_mode_url_2())
@@ -109,6 +115,7 @@ struct ContentView: View {
                         .tabItem {
                             Label(basic_mode_label_3, systemImage: "note")
                         }
+                        .tag(3)
                         .onAppear() {
                             if tabs_webview_3.webView.url?.absoluteString != get_basic_mode_url_3() {
                                 tabs_webview_3.loadURL(urlString: get_basic_mode_url_3())
@@ -118,6 +125,7 @@ struct ContentView: View {
                         .tabItem {
                             Label(basic_mode_label_4, systemImage: "gear")
                         }
+                        .tag(4)
                         .onAppear() {
                             // If the Settings tab appears, reset the loaded page to its default settings.
                             // This is needed because if on another page currently,
@@ -132,6 +140,7 @@ struct ContentView: View {
                             .tabItem {
                                 Label(basic_mode_label_5, systemImage: "gear")
                             }
+                            .tag(5)
                             .onAppear() {
                                 // See comment on the above tab: Reload it this tab shows the Settings page.
                                 if tabs_webview_5.webView.url?.absoluteString != get_basic_mode_url_5() || is_settings_url(url: get_basic_mode_url_5()) {
@@ -154,6 +163,7 @@ struct ContentView: View {
                         tabs_webview_2.loadURL(urlString: about_blank)
                         tabs_webview_3.loadURL(urlString: about_blank)
                         tabs_webview_4.loadURL(urlString: about_blank)
+                        tabs_webview_5.loadURL(urlString: about_blank)
                         single_webview.loadURL(urlString: get_advanced_mode_url_string())
                     }
             }
@@ -232,8 +242,22 @@ struct ContentView: View {
                         basic_mode_url_fragment_5 = ""
                         basic_mode_enable_tab_5 = false
                     }
-                    view_state = ViewState.tabs
                     print ("Switch to tabs view")
+                    view_state = ViewState.tabs
+                    // The fourth tab or the fifth tab is the Settings tab.
+                    // The code below ensures that if the number of tabs changes due to changing a setting,
+                    // the Settings tab remains the active tab.
+                    if tabs.count == 4 {
+                        if previous_tab_count == 5 {
+                            basic_mode_tab_number = 4
+                        }
+                    }
+                    if tabs.count == 5 {
+                        if previous_tab_count == 4 {
+                            basic_mode_tab_number = 5
+                        }
+                    }
+                    previous_tab_count = tabs.count
                 } catch {
                     view_state = ViewState.single
                     print ("Switch to single view")
@@ -247,7 +271,27 @@ struct ContentView: View {
                 if first_active_scene_phase_done {
                     bibledit_start_library ();
                     
-                    let web_url : String = single_webview.webView.url?.absoluteString ?? ""
+                    // Reload the loaded page(s), just to be sure that everything works.
+                    if view_state == ViewState.tabs { // Todo
+
+                        
+                        
+                        print (tabs_webview_2.webView.url)
+                        // Todo if not loaded, the above gives nil.
+                        
+//                        if tabs_webview_2.webView.url?.absoluteString != get_basic_mode_url_2() {
+//                            tabs_webview_2.loadURL(urlString: get_basic_mode_url_2())
+//                        }
+
+                        
+                        
+                    }
+                    if view_state == ViewState.single { // Todo
+                        let web_url : String = single_webview.webView.url?.absoluteString ?? ""
+                        single_webview.loadURL(urlString: web_url)
+                    }
+
+//                    let web_url : String = single_webview.webView.url?.absoluteString ?? ""
                     //                let index = web_url.index(web_url.startIndex, offsetBy: 21)
                     //                let bit : String = web_url.substring(to: index)
                     //                print (web_url)
@@ -256,8 +300,6 @@ struct ContentView: View {
                     //
                     //                let bit2 : String = String(web_url.prefix(21))
                     //                print (bit2)
-                    // Reload the loaded page, just to be sure that everything works.
-                    // advanced_webview.loadURL(urlString: web_url)
                     // Todo do the above for the basic webviews too depending on the view type.
                     
                     // Previous, Objective-C, app had this:
@@ -311,7 +353,7 @@ struct ContentView: View {
     }
     
     init() {
-        // Get the port number once before the embedded webserver runs, and store it for later use.
+        // Get the port number once, before the embedded webserver runs, and store it for later use.
         _ = get_port_number()
     }
 }
@@ -323,7 +365,6 @@ struct WebView: UIViewRepresentable {
     
     init() {
         self.webView = WKWebView()
-        
     }
     
     func makeUIView(context: Context) -> WKWebView {
@@ -332,7 +373,6 @@ struct WebView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: WKWebView, context: Context) {
-        
     }
     
     func goBack(){
