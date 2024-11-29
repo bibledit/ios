@@ -33,7 +33,7 @@ struct TabState: Decodable {
     var url: String
 }
 
-var previous_tab_count = 0
+var previous_tab_count : Int = 0
 
 struct ContentView: View {
 
@@ -146,7 +146,6 @@ struct ContentView: View {
                                 if tabs_webview_5.webView.url?.absoluteString != get_basic_mode_url_5() || is_settings_url(url: get_basic_mode_url_5()) {
                                     tabs_webview_5.loadURL(urlString: get_basic_mode_url_5())
                                 }
-                                // Todo load and check on load, compare.
                             }
                     }
                 }
@@ -217,7 +216,6 @@ struct ContentView: View {
         
         .onReceive(repetitive_timer) { time in
             let tabs_state : String = String(cString: bibledit_get_pages_to_open ())
-            //print ("tabs state length:", tabs_state.count)
             if (tabs_state != previous_tabs_state) {
                 previous_tabs_state = tabs_state
                 let json = tabs_state.data(using: .utf8)!
@@ -270,47 +268,40 @@ struct ContentView: View {
                 print("Change scene phase to active")
                 if first_active_scene_phase_done {
                     bibledit_start_library ();
-                    
                     // Reload the loaded page(s), just to be sure that everything works.
-                    if view_state == ViewState.tabs { // Todo
-
-                        
-                        
-                        print (tabs_webview_2.webView.url)
-                        // Todo if not loaded, the above gives nil.
-                        
-//                        if tabs_webview_2.webView.url?.absoluteString != get_basic_mode_url_2() {
-//                            tabs_webview_2.loadURL(urlString: get_basic_mode_url_2())
-//                        }
-
-                        
-                        
+                    if view_state == ViewState.tabs {
+                        switch basic_mode_tab_number {
+                        case 1:
+                            if tabs_webview_1.webView.url?.absoluteString != get_basic_mode_url_1() {
+                                tabs_webview_1.loadURL(urlString: get_basic_mode_url_1())
+                            }
+                        case 2:
+                            if tabs_webview_2.webView.url?.absoluteString != get_basic_mode_url_2() {
+                                tabs_webview_2.loadURL(urlString: get_basic_mode_url_2())
+                            }
+                        case 3:
+                            if tabs_webview_3.webView.url?.absoluteString != get_basic_mode_url_3() {
+                                tabs_webview_3.loadURL(urlString: get_basic_mode_url_3())
+                            }
+                        case 4:
+                            if tabs_webview_4.webView.url?.absoluteString != get_basic_mode_url_4() {
+                                tabs_webview_4.loadURL(urlString: get_basic_mode_url_4())
+                            }
+                        case 5:
+                            if tabs_webview_5.webView.url?.absoluteString != get_basic_mode_url_5() {
+                                tabs_webview_5.loadURL(urlString: get_basic_mode_url_5())
+                            }
+                        default:
+                            print ("Unknown basic mode tab number")
+                        }
                     }
-                    if view_state == ViewState.single { // Todo
-                        let web_url : String = single_webview.webView.url?.absoluteString ?? ""
-                        single_webview.loadURL(urlString: web_url)
+                    if view_state == ViewState.single {
+                        let url = single_webview.webView.url
+                        if (url != nil) {
+                            let address : String = url!.absoluteString
+                            single_webview.loadURL(urlString: address)
+                        }
                     }
-
-//                    let web_url : String = single_webview.webView.url?.absoluteString ?? ""
-                    //                let index = web_url.index(web_url.startIndex, offsetBy: 21)
-                    //                let bit : String = web_url.substring(to: index)
-                    //                print (web_url)
-                    //                print (index)
-                    //                print (bit)
-                    //
-                    //                let bit2 : String = String(web_url.prefix(21))
-                    //                print (bit2)
-                    // Todo do the above for the basic webviews too depending on the view type.
-                    
-                    // Previous, Objective-C, app had this:
-                    //BOOL equal = [bit isEqualToString:homeUrl];
-                    //if (!equal) {
-                    //    // Reload home page.
-                    //    [BibleditController bibleditBrowseTo:homeUrl]; // Check on this one in tabbed view.
-                    //} else {
-                    //    // Reload the loaded page, just to be sure that everything works.
-                    //    [BibleditController bibleditBrowseTo:path];
-                    //}
                 }
                 first_active_scene_phase_done = true
             }
