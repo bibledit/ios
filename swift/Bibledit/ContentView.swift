@@ -53,6 +53,14 @@ struct ContentView: View {
     @State var basic_mode_label_3 : String = "Notes"
     @State var basic_mode_label_4 : String = "Settings"
     @State var basic_mode_label_5 : String = ""
+
+    // The images for the tabs of the basic mode.
+    @State var basic_mode_image_1 : String = "doc"
+    @State var basic_mode_image_2 : String = "book"
+    @State var basic_mode_image_3 : String = "note"
+    @State var basic_mode_image_4 : String = "gear"
+    @State var basic_mode_image_5 : String = "gear"
+    
     @State var basic_mode_enable_tab_5 : Bool = false
     
     @State var basic_mode_tab_number : Int = 1
@@ -93,7 +101,7 @@ struct ContentView: View {
                 TabView (selection: $basic_mode_tab_number) {
                     tabs_webview_1
                         .tabItem {
-                            Label(basic_mode_label_1, systemImage: "doc")
+                            Label(basic_mode_label_1, systemImage: basic_mode_image_1)
                         }
                         .tag(1)
                         .onAppear() {
@@ -103,7 +111,7 @@ struct ContentView: View {
                         }
                     tabs_webview_2
                         .tabItem {
-                            Label(basic_mode_label_2, systemImage: "book")
+                            Label(basic_mode_label_2, systemImage: basic_mode_image_2)
                         }
                         .tag(2)
                         .onAppear() {
@@ -113,7 +121,7 @@ struct ContentView: View {
                         }
                     tabs_webview_3
                         .tabItem {
-                            Label(basic_mode_label_3, systemImage: "note")
+                            Label(basic_mode_label_3, systemImage: basic_mode_image_3)
                         }
                         .tag(3)
                         .onAppear() {
@@ -123,7 +131,7 @@ struct ContentView: View {
                         }
                     tabs_webview_4
                         .tabItem {
-                            Label(basic_mode_label_4, systemImage: "gear")
+                            Label(basic_mode_label_4, systemImage: basic_mode_image_4)
                         }
                         .tag(4)
                         .onAppear() {
@@ -138,7 +146,7 @@ struct ContentView: View {
                     if basic_mode_enable_tab_5 {
                         tabs_webview_5
                             .tabItem {
-                                Label(basic_mode_label_5, systemImage: "gear")
+                                Label(basic_mode_label_5, systemImage: basic_mode_image_5)
                             }
                             .tag(5)
                             .onAppear() {
@@ -256,6 +264,12 @@ struct ContentView: View {
                         }
                     }
                     previous_tab_count = tabs.count
+                    // Set the images for each tab.
+                    basic_mode_image_1 = get_tab_image (url: basic_mode_url_fragment_1)
+                    basic_mode_image_2 = get_tab_image (url: basic_mode_url_fragment_2)
+                    basic_mode_image_3 = get_tab_image (url: basic_mode_url_fragment_3)
+                    basic_mode_image_4 = get_tab_image (url: basic_mode_url_fragment_4)
+                    basic_mode_image_5 = get_tab_image (url: basic_mode_url_fragment_5)
                 } catch {
                     view_state = ViewState.single
                     print ("Switch to single view")

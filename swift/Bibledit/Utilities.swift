@@ -20,7 +20,7 @@
 import Foundation
 
 
-// The URL fragments for the four tabs in basic mode.
+// The URL fragments for the four or five tabs in basic mode.
 // These have default values, and get updated from the Bibledit kernel as needed.
 var basic_mode_url_fragment_1 : String = "editone2/index"
 var basic_mode_url_fragment_2 : String = "resource/index"
@@ -284,4 +284,31 @@ func disable_backup_to_icloud() -> Void // Todo write it, call it, test it?
     } catch {
         print(error)
     }
+}
+
+
+func get_tab_image(url : String) -> String // Todo use this.
+{
+    // Image for the Translate tab.
+    if url.contains("edit") {
+        return "doc"
+    }
+    // Image for the Resources tab.
+    if url.contains("resource") {
+        return "book"
+    }
+    // Image for the Notes tab.
+    if url.contains("note") {
+        return "note"
+    }
+    // Image for the Changes tab.
+    if url.contains("change") {
+        return "clock"
+    }
+    // Image for the Settings tab.
+    if url.contains("personalize") {
+        return "gear"
+    }
+    // If all else fails:
+    return "book"
 }
