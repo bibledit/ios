@@ -35,6 +35,8 @@ struct TabState: Decodable {
 
 var previous_tab_count : Int = 0
 
+var previous_sync_state : String = "false"
+
 struct ContentView: View {
 
     @Environment(\.scenePhase) var scene_phase
@@ -105,7 +107,7 @@ struct ContentView: View {
                         }
                         .tag(1)
                         .onAppear() {
-                            if tabs_webview_1.webView.url?.absoluteString != get_basic_mode_url_1() {
+                            if tabs_webview_1.web_view.url?.absoluteString != get_basic_mode_url_1() {
                                 tabs_webview_1.loadURL(urlString: get_basic_mode_url_1())
                             }
                         }
@@ -115,7 +117,7 @@ struct ContentView: View {
                         }
                         .tag(2)
                         .onAppear() {
-                            if tabs_webview_2.webView.url?.absoluteString != get_basic_mode_url_2() {
+                            if tabs_webview_2.web_view.url?.absoluteString != get_basic_mode_url_2() {
                                 tabs_webview_2.loadURL(urlString: get_basic_mode_url_2())
                             }
                         }
@@ -125,7 +127,7 @@ struct ContentView: View {
                         }
                         .tag(3)
                         .onAppear() {
-                            if tabs_webview_3.webView.url?.absoluteString != get_basic_mode_url_3() {
+                            if tabs_webview_3.web_view.url?.absoluteString != get_basic_mode_url_3() {
                                 tabs_webview_3.loadURL(urlString: get_basic_mode_url_3())
                             }
                         }
@@ -139,7 +141,7 @@ struct ContentView: View {
                             // This is needed because if on another page currently,
                             // since there's no menu, the user cannot return to the main settings page.
                             // Reloading the default page resolves this.
-                            if tabs_webview_4.webView.url?.absoluteString != get_basic_mode_url_4() || is_settings_url(url: get_basic_mode_url_4()) {
+                            if tabs_webview_4.web_view.url?.absoluteString != get_basic_mode_url_4() || is_settings_url(url: get_basic_mode_url_4()) {
                                 tabs_webview_4.loadURL(urlString: get_basic_mode_url_4())
                             }
                         }
@@ -151,7 +153,7 @@ struct ContentView: View {
                             .tag(5)
                             .onAppear() {
                                 // See comment on the above tab: Reload it this tab shows the Settings page.
-                                if tabs_webview_5.webView.url?.absoluteString != get_basic_mode_url_5() || is_settings_url(url: get_basic_mode_url_5()) {
+                                if tabs_webview_5.web_view.url?.absoluteString != get_basic_mode_url_5() || is_settings_url(url: get_basic_mode_url_5()) {
                                     tabs_webview_5.loadURL(urlString: get_basic_mode_url_5())
                                 }
                             }
@@ -223,6 +225,8 @@ struct ContentView: View {
         }
         
         .onReceive(repetitive_timer) { time in
+            
+            // Handle the desired mode of the app, whether basic mode with tabs, or advanced mode.
             let tabs_state : String = String(cString: bibledit_get_pages_to_open ())
             if (tabs_state != previous_tabs_state) {
                 previous_tabs_state = tabs_state
@@ -275,6 +279,24 @@ struct ContentView: View {
                     print ("Switch to single view")
                 }
             }
+            
+            // Todo
+            // Handle the situation to leave the screen on during send/receive.
+            // This ensures that the send/receive action is completed properly,
+            // and is normally not interrupted by iOS putting the application to sleep.
+            let sync_state : String = String(cString: bibledit_is_synchronizing ())
+            if sync_state == "true" {
+                //print ("keep screen on")
+                UIApplication.shared.isIdleTimerDisabled = true
+            }
+            if sync_state == "false" {
+                if sync_state == previous_sync_state {
+                    //print ("do not keep screen on")
+                    UIApplication.shared.isIdleTimerDisabled = false
+                }
+            }
+            previous_sync_state = sync_state
+            
         }
 
         .onChange(of: scene_phase) { phase in
@@ -286,23 +308,23 @@ struct ContentView: View {
                     if view_state == ViewState.tabs {
                         switch basic_mode_tab_number {
                         case 1:
-                            if tabs_webview_1.webView.url?.absoluteString != get_basic_mode_url_1() {
+                            if tabs_webview_1.web_view.url?.absoluteString != get_basic_mode_url_1() {
                                 tabs_webview_1.loadURL(urlString: get_basic_mode_url_1())
                             }
                         case 2:
-                            if tabs_webview_2.webView.url?.absoluteString != get_basic_mode_url_2() {
+                            if tabs_webview_2.web_view.url?.absoluteString != get_basic_mode_url_2() {
                                 tabs_webview_2.loadURL(urlString: get_basic_mode_url_2())
                             }
                         case 3:
-                            if tabs_webview_3.webView.url?.absoluteString != get_basic_mode_url_3() {
+                            if tabs_webview_3.web_view.url?.absoluteString != get_basic_mode_url_3() {
                                 tabs_webview_3.loadURL(urlString: get_basic_mode_url_3())
                             }
                         case 4:
-                            if tabs_webview_4.webView.url?.absoluteString != get_basic_mode_url_4() {
+                            if tabs_webview_4.web_view.url?.absoluteString != get_basic_mode_url_4() {
                                 tabs_webview_4.loadURL(urlString: get_basic_mode_url_4())
                             }
                         case 5:
-                            if tabs_webview_5.webView.url?.absoluteString != get_basic_mode_url_5() {
+                            if tabs_webview_5.web_view.url?.absoluteString != get_basic_mode_url_5() {
                                 tabs_webview_5.loadURL(urlString: get_basic_mode_url_5())
                             }
                         default:
@@ -310,7 +332,7 @@ struct ContentView: View {
                         }
                     }
                     if view_state == ViewState.single {
-                        let url = single_webview.webView.url
+                        let url = single_webview.web_view.url
                         if (url != nil) {
                             let address : String = url!.absoluteString
                             single_webview.loadURL(urlString: address)
@@ -366,30 +388,30 @@ struct ContentView: View {
 
 struct WebView: UIViewRepresentable {
     
-    let webView: WKWebView
+    let web_view: WKWebView
     
     init() {
-        self.webView = WKWebView()
+        self.web_view = WKWebView()
     }
     
     func makeUIView(context: Context) -> WKWebView {
-        webView.allowsBackForwardNavigationGestures = true
-        return webView
+        web_view.allowsBackForwardNavigationGestures = true
+        return web_view
     }
     
     func updateUIView(_ uiView: WKWebView, context: Context) {
     }
     
     func goBack(){
-        webView.goBack()
+        web_view.goBack()
     }
     
     func goForward(){
-        webView.goForward()
+        web_view.goForward()
     }
     
     func loadURL(urlString: String) {
-        webView.load(URLRequest(url: URL(string: urlString)!))
+        web_view.load(URLRequest(url: URL(string: urlString)!))
     }
 }
 
