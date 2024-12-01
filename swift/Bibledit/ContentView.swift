@@ -267,20 +267,26 @@ struct ContentView: View {
                             basic_mode_tab_number = 5
                         }
                     }
-                    previous_tab_count = tabs.count
                     // Set the images for each tab.
                     basic_mode_image_1 = get_tab_image (url: basic_mode_url_fragment_1)
                     basic_mode_image_2 = get_tab_image (url: basic_mode_url_fragment_2)
                     basic_mode_image_3 = get_tab_image (url: basic_mode_url_fragment_3)
                     basic_mode_image_4 = get_tab_image (url: basic_mode_url_fragment_4)
                     basic_mode_image_5 = get_tab_image (url: basic_mode_url_fragment_5)
+                    // Handle situation that when going to basic mode, that it switches to the Resources.
+                    if tabs.count >= 4 {
+                        if previous_tab_count == 0 {
+                            basic_mode_tab_number = 2
+                        }
+                    }
+                    // Store tab count for next time.
+                    previous_tab_count = tabs.count
                 } catch {
                     view_state = ViewState.single
                     print ("Switch to single view")
                 }
             }
             
-            // Todo
             // Handle the situation to leave the screen on during send/receive.
             // This ensures that the send/receive action is completed properly,
             // and is normally not interrupted by iOS putting the application to sleep.
@@ -296,7 +302,13 @@ struct ContentView: View {
                 }
             }
             previous_sync_state = sync_state
-            
+
+            // Handle the situation that an URL should be opened in the default web browser.
+            let external_url : String = String(cString: bibledit_get_external_url ())
+            if !external_url.isEmpty {
+                let url : URL = URL(string: external_url)!
+                UIApplication.shared.open(url)
+            }
         }
 
         .onChange(of: scene_phase) { phase in

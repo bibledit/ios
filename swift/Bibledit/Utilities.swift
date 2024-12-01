@@ -200,43 +200,43 @@ func get_advanced_mode_url_string() -> String
 }
 
 
-func get_basic_mode_url_1() -> String // Todo use central function
+func get_basic_mode_url_1() -> String
 {
     return get_url_string(url_fragment: basic_mode_url_fragment_1)
 }
 
 
-func get_basic_mode_url_2() -> String //  Todo use central function
+func get_basic_mode_url_2() -> String
 {
     return get_url_string(url_fragment: basic_mode_url_fragment_2)
 }
 
 
-func get_basic_mode_url_3() -> String//  Todo use central function
+func get_basic_mode_url_3() -> String
 {
     return get_url_string(url_fragment: basic_mode_url_fragment_3)
 }
 
 
-func get_basic_mode_url_4() -> String//  Todo use central function
+func get_basic_mode_url_4() -> String
 {
     return get_url_string(url_fragment: basic_mode_url_fragment_4)
 }
 
 
-func get_basic_mode_url_5() -> String //  Todo use central function
+func get_basic_mode_url_5() -> String
 {
     return get_url_string(url_fragment: basic_mode_url_fragment_5)
 }
 
 
-func is_settings_url(url : String) -> Bool // Todo use this.
+func is_settings_url(url : String) -> Bool
 {
     return url.contains("personalize")
 }
 
 
-func disable_backup_to_icloud() -> Void // Todo write it, call it, test it?
+func disable_backup_to_icloud() -> Void
 {
     // Disable the entire Documents folder from being backed up to iCloud.
     // The reason is that if it were included,
@@ -287,14 +287,14 @@ func disable_backup_to_icloud() -> Void // Todo write it, call it, test it?
 }
 
 
-func get_tab_image(url : String) -> String // Todo use this.
+func get_tab_image(url : String) -> String
 {
     // Image for the Translate tab.
     if url.contains("edit") {
         return "doc"
     }
     // Image for the Resources tab.
-    if url.contains("resource") {
+    if is_resources_url(url: url) {
         return "book"
     }
     // Image for the Notes tab.
@@ -311,4 +311,10 @@ func get_tab_image(url : String) -> String // Todo use this.
     }
     // If all else fails:
     return "book"
+}
+
+
+func is_resources_url(url: String) -> Bool
+{
+    return url.contains("resource")
 }
