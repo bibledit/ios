@@ -1,5 +1,5 @@
 /*
-Copyright (©) 2003-2024 Teus Benschop.
+Copyright (©) 2003-2025 Teus Benschop.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
 
-#include <database/volatile.h>
+#include <database/temporal.h>
 #include <filter/url.h>
 #include <filter/string.h>
 #include <database/sqlite.h>
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 // Database resilience: It is stored in the plain filesystem in the temporal location.
 
 
-namespace database::volatile_ {
+namespace database::temporal {
 
 
 static std::string filename (int id, std::string key)

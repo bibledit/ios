@@ -1,5 +1,5 @@
 /*
- Copyright (©) 2003-2024 Teus Benschop.
+ Copyright (©) 2003-2025 Teus Benschop.
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -178,9 +178,9 @@ void Styles_Css::add (void * database_styles_item, bool paragraph, bool keepwith
   // The name of the class as used in a Quill-based editor.
   std::string quill_class {", ."};
   if (paragraph) {
-    quill_class.append (quill_logic_class_prefix_block ());
+    quill_class.append (quill_class_prefix_block);
   } else {
-    quill_class.append (quill_logic_class_prefix_inline ());
+    quill_class.append (quill_class_prefix_inline);
   }
   quill_class.append (class_name);
   

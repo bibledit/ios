@@ -1,5 +1,5 @@
 /*
- Copyright (©) 2003-2024 Teus Benschop.
+ Copyright (©) 2003-2025 Teus Benschop.
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -17,30 +17,12 @@
  */
 
 
-#include <redirect/index.h>
-#include <filter/url.h>
-#include <webserver/request.h>
-#include <editone2/index.h>
+#pragma once
 
+#include <config/libraries.h>
 
-std::string editone_index_url ()
-{
-  return "editone/index";
-}
+class Webserver_Request;
 
-
-bool editone_index_acl ()
-{
-  return true;
-}
-
-
-std::string editone_index (Webserver_Request& webserver_request)
-{
-  std::string url = editone2_index_url ();
-  for (auto query : webserver_request.query) {
-    url = filter_url_build_http_query (url, query.first, query.second);
-  }
-  redirect_browser (webserver_request, url);
-  return std::string();
-}
+std::string editone_index_url ();
+bool editone_index_acl (Webserver_Request& webserver_request);
+std::string editone_index (Webserver_Request& webserver_request);

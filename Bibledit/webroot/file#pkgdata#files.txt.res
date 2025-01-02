@@ -236,9 +236,9 @@
 /edit/index.html
 /edit/index.js
 /edit/keys.js
-/editone2
-/editone2/index.html
-/editone2/index.js
+/editone
+/editone/index.html
+/editone/index.js
 /editor
 /editor/select.html
 /editor/select.js
@@ -320,6 +320,7 @@
 /images/index.html
 /images/view.html
 /index
+/index.html
 /index/index.html
 /index/listing.html
 /ipc
@@ -1062,6 +1063,10 @@
 /unittests/tests/Genesis-1-1-18.gif
 /unittests/tests/html-fixed-1-gumbo.html
 /unittests/tests/html-invalid-1.html
+/unittests/tests/http-post-content-1.txt
+/unittests/tests/http-post-content-2.txt
+/unittests/tests/http-post-type-1.txt
+/unittests/tests/http-post-type-2.txt
 /unittests/tests/invalid-utf8-2.usfm
 /unittests/tests/invalid-utf8-new.txt
 /unittests/tests/invalid-utf8-old.txt

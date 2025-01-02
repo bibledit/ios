@@ -1,5 +1,5 @@
 /*
-Copyright (©) 2003-2024 Teus Benschop.
+Copyright (©) 2003-2025 Teus Benschop.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <config/libraries.h>
 
-void editone_logic_prefix_html (std::string usfm, std::string stylesheet, std::string & html, std::string & last_p_style);
-void editone_logic_editable_html (std::string usfm, std::string stylesheet, std::string & html);
-void editone_logic_suffix_html (std::string editable_last_p_style, std::string usfm, std::string stylesheet, std::string & html);
-std::string editone_logic_html_to_usfm (std::string stylesheet, std::string html);
-void editone_logic_move_notes_v2 (std::string & prefix, std::string & suffix);
+void editone_logic_prefix_html (const std::string& usfm, const std::string& stylesheet,
+                                std::string& html, std::string& last_p_style);
+void editone_logic_editable_html (const std::string& usfm, const std::string& stylesheet,
+                                  std::string& html);
+void editone_logic_suffix_html (const std::string& editable_last_p_style, const std::string& usfm,
+                                const std::string& stylesheet, std::string& html);
+std::string editone_logic_html_to_usfm (const std::string& stylesheet, std::string html);
+void editone_logic_move_notes (std::string& prefix, std::string& suffix);

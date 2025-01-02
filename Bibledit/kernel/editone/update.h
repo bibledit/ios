@@ -1,5 +1,5 @@
 /*
- Copyright (©) 2003-2024 Teus Benschop.
+ Copyright (©) 2003-2025 Teus Benschop.
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -23,6 +23,6 @@
 
 class Webserver_Request;
 
-std::string editone2_verse_url ();
-bool editone2_verse_acl (Webserver_Request& webserver_request);
-std::string editone2_verse (Webserver_Request& webserver_request);
+std::string editone_update_url ();
+bool editone_update_acl (Webserver_Request& webserver_request);
+std::string editone_update (Webserver_Request& webserver_request);

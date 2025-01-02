@@ -1,5 +1,13 @@
 <h1>ChangeLog</h1>
 
+<p>5.1.022: Install steps for the Cloud om more Linux distros.</p>
+<p>5.1.022: The word-level attributes are editable in all three Bible editors.</p>
+<p>5.1.022: The word-level attributes are no longer visible in the verse editor and the chapter editor.</p>
+<p>5.1.022: Safer calls of commandline tools.</p>
+<p>5.1.021: Support importing multiple files in one go into a Bible.</p>
+<p>5.1.021: Support change notifications for Bibles with one or more dots in their name.</p>
+<p>5.1.021: Bibledit for iOS is now written in Swift.</p>
+<p>5.1.021: Displays Hebrew cantillation and vowels, Greek accents, Arabic vowels and shaping, in the SWORD resources.</p>
 <p>5.1.021: Fixed: Fails to navigate through exports on Windows.</p>
 <p>5.1.020: Bibledit for Windows moved from the CEF Sharp to the Microsoft Webview2 embedded web browser.</p>
 <p>5.1.020: Fix NET Bible error "You have been blocked".</p>
@@ -135,7 +143,7 @@
 <p>5.0.934: Exporting invalid UTF-8 text gets recorded in the journal.</p>
 <p>5.0.933: Transpose and fix double spaces in footnotes and cross references.</p>
 <p>5.0.932: Translate standardized focused verse from Paratext to local verse mapping.</p>
-<p>5.0.932: Forwards Bible from editone to editone2 in a workspace.</p>
+<p>5.0.932: Forwards Bible from editone to editone in a workspace.</p>
 <p>5.0.929: Runs on Mac M1 with arm64 processor.</p>
 <p>5.0.929: Optionally coloured note status labels.</p>
 <p>5.0.928: Moves notes from the non-editable prefix to the very end in the verse editor.</p>

@@ -1,5 +1,5 @@
 /*
- Copyright (©) 2003-2024 Teus Benschop.
+ Copyright (©) 2003-2025 Teus Benschop.
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  */
 
 
-#include <editone2/save.h>
+#include <editone/save.h>
 #include <filter/roles.h>
 #include <filter/string.h>
 #include <filter/usfm.h>
@@ -34,20 +34,20 @@
 #include <editor/html2usfm.h>
 #include <access/bible.h>
 #include <bb/logic.h>
-#include <editone2/logic.h>
+#include <editone/logic.h>
 #include <edit/logic.h>
 #include <developer/logic.h>
 #include <rss/logic.h>
 #include <sendreceive/logic.h>
 
 
-std::string editone2_save_url ()
+std::string editone_save_url ()
 {
-  return "editone2/save";
+  return "editone/save";
 }
 
 
-bool editone2_save_acl (Webserver_Request& webserver_request)
+bool editone_save_acl (Webserver_Request& webserver_request)
 {
   if (Filter_Roles::access_control (webserver_request, Filter_Roles::translator ()))
     return true;
@@ -56,7 +56,7 @@ bool editone2_save_acl (Webserver_Request& webserver_request)
 }
 
 
-std::string editone2_save (Webserver_Request& webserver_request)
+std::string editone_save (Webserver_Request& webserver_request)
 {
   // Check on information about where to save the verse.
   bool save = (webserver_request.post.count ("bible") && webserver_request.post.count ("book") && webserver_request.post.count ("chapter") && webserver_request.post.count ("verse") && webserver_request.post.count ("html"));
@@ -104,8 +104,6 @@ std::string editone2_save (Webserver_Request& webserver_request)
 
   
   const std::string stylesheet = database::config::bible::get_editor_stylesheet (bible);
- 
-  
   std::string verse_usfm = editone_logic_html_to_usfm (stylesheet, html);
 
   
@@ -125,7 +123,7 @@ std::string editone2_save (Webserver_Request& webserver_request)
   // it's worth to check on this.
   // Because the user's editor may not yet have loaded this updated Bible text.
   // https://github.com/bibledit/cloud/issues/340
-  std::string loaded_usfm = getLoadedUsfm2 (webserver_request, bible, book, chapter, unique_id);
+  std::string loaded_usfm = get_loaded_usfm (webserver_request, bible, book, chapter, unique_id);
   if (loaded_usfm != old_chapter_usfm) {
     bible_logic::recent_save_email (bible, book, chapter, username, loaded_usfm, old_chapter_usfm);
   }
@@ -160,7 +158,7 @@ std::string editone2_save (Webserver_Request& webserver_request)
     
     
     // Store a copy of the USFM now saved as identical to what's loaded in the editor for later reference.
-    storeLoadedUsfm2 (webserver_request, bible, book, chapter, unique_id);
+    store_loaded_usfm (webserver_request, bible, book, chapter, unique_id);
 
     return locale_logic_text_saved ();
   }
