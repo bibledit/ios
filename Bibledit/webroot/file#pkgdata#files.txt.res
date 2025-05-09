@@ -272,7 +272,6 @@
 /fonts/Montserrat-SemiBold.ttf
 /fonts/SILEOT.ttf
 /fonts/SIL-Licenses.txt
-/generate
 /git
 /git/gitflag
 /gumbo
@@ -624,7 +623,6 @@
 /sendreceive
 /sendreceive/index.html
 /sendreceive/index.js
-/server
 /session
 /session/login.html
 /session/login.js
@@ -749,7 +747,6 @@
 /styles
 /styles/indexm.html
 /styles/sheetm.html
-/stylesv2
 /styles/view2.html
 /styles/view2.js
 /sword
@@ -864,7 +861,6 @@
 /tmp/holder
 /trash
 /trash/holder
-/unittest
 /unittests
 /unittests/scripts
 /unittests/scripts/editor1.py
