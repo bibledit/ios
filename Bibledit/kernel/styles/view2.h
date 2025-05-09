@@ -23,6 +23,6 @@
 
 class Webserver_Request;
 
-std::string styles_view_url ();
-bool styles_view_acl (Webserver_Request& webserver_request);
-std::string styles_view (Webserver_Request& webserver_request);
+std::string styles_view2_url ();
+bool styles_view2_acl (Webserver_Request& webserver_request);
+std::string styles_view2 (Webserver_Request& webserver_request);

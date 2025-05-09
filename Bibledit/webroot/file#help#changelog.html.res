@@ -1,6 +1,17 @@
 <h1>ChangeLog</h1>
 
-<p>5.1.022: Install steps for the Cloud om more Linux distros.</p>
+<p>5.1.025: List deprecated USFM markers in the info document.</p>
+<p>5.1.025: Support for USFM marker \pr Right aligned paragraph.</p>
+<p>5.1.024: Fetches Studylight content securely.</p>
+<p>5.1.024: Support for the \ie and \usfm markup.</p>
+<p>5.1.024: Better support for the \ca markup.</p>
+<p>5.1.023: If a Bible is specified in a workspace, activating that workspace sets the first Bible in that workspace as the active Bible.</p>
+<p>5.1.023: The verse editor preview sets the active Bible to the Bible loaded in that editor.</p>
+<p>5.1.023: The editor switcher in the Bible editors sets the active Bible to the Bible loaded in the editor.</p>
+<p>5.1.023: Embed the gumbo-parser code.</p>
+<p>5.1.023: Bibledit for iOS can download and share exports.</p>
+<p>5.1.022: Native Bibledit for Windows ARM for better performance and battery life.</p>
+<p>5.1.022: Install steps for the Cloud on more Linux distros.</p>
 <p>5.1.022: The word-level attributes are editable in all three Bible editors.</p>
 <p>5.1.022: The word-level attributes are no longer visible in the verse editor and the chapter editor.</p>
 <p>5.1.022: Safer calls of commandline tools.</p>

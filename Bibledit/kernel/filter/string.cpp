@@ -64,7 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #ifdef HAVE_CLOUD
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdocumentation"
-#include <gumbo.h>
+#include "gumbo/gumbo.h"
 #pragma clang diagnostic pop
 #endif
 #ifdef HAVE_CLOUD
@@ -137,7 +137,7 @@ std::string implode (const std::vector <std::string>& values, std::string delimi
 // Example input {1, 2, 3, 4}, max three last bits, the output will be [12, 3, 4}.
 void implode_from_beginning_remain_with_max_n_bits (std::vector<std::string>& input, const int n, const std::string& joiner)
 {
-  while (input.size() > n) {
+  while (static_cast<int>(input.size()) > n) {
     input[1].insert(0, input.at(0) + joiner);
     input.erase(input.cbegin());
   }
@@ -194,9 +194,11 @@ std::string convert_to_string (const std::string& s)
 }
 
 
-std::string convert_to_string (const float f)
+std::string convert_to_string (const float f, const int precision)
 {
   std::ostringstream r;
+  if (precision)
+    r << std::fixed << std::setprecision(precision);
   r << f;
   return r.str();
 }
