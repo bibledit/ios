@@ -14,6 +14,7 @@
 		CA58F7F42CD5471B002F2EA4 /* xcode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = xcode.xcodeproj; sourceTree = "<group>"; };
 		CA5E0C4F2CCD6BAE00234D54 /* Bibledit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bibledit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA6C16D82DCE2523000DDC0D /* xcode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = xcode.xcodeproj; sourceTree = "<group>"; };
+		CA6D22832E48CB2800A3642D /* xcode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = xcode.xcodeproj; sourceTree = "<group>"; };
 		CA7675EC2CD5669800C56F74 /* xcode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = xcode.xcodeproj; sourceTree = "<group>"; };
 		CAE266DF2CD562F200B744C0 /* xcode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = xcode.xcodeproj; sourceTree = "<group>"; };
 		CAECA9FC2CD67E7C00FFAC5B /* xcode.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = xcode.xcodeproj; sourceTree = "<group>"; };
@@ -97,6 +98,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CA6D22842E48CB2800A3642D /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CA7675ED2CD5669800C56F74 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,20 +179,16 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = CA58F7F52CD5471C002F2EA4 /* Products */;
+					ProjectRef = CA58F7F42CD5471B002F2EA4 /* xcode.xcodeproj */;
+				},
+				{
 					ProductGroup = CA58A9752CD53A64002F2EA4 /* Products */;
 					ProjectRef = CA58A9742CD53A64002F2EA4 /* xcode.xcodeproj */;
 				},
 				{
 					ProductGroup = CA7675ED2CD5669800C56F74 /* Products */;
 					ProjectRef = CA7675EC2CD5669800C56F74 /* xcode.xcodeproj */;
-				},
-				{
-					ProductGroup = CAECA9FD2CD67E7C00FFAC5B /* Products */;
-					ProjectRef = CAECA9FC2CD67E7C00FFAC5B /* xcode.xcodeproj */;
-				},
-				{
-					ProductGroup = CA58F7F52CD5471C002F2EA4 /* Products */;
-					ProjectRef = CA58F7F42CD5471B002F2EA4 /* xcode.xcodeproj */;
 				},
 				{
 					ProductGroup = CA6C16D92DCE2523000DDC0D /* Products */;
@@ -197,8 +199,16 @@
 					ProjectRef = CA416D942CD9533900B80592 /* xcode.xcodeproj */;
 				},
 				{
+					ProductGroup = CAECA9FD2CD67E7C00FFAC5B /* Products */;
+					ProjectRef = CAECA9FC2CD67E7C00FFAC5B /* xcode.xcodeproj */;
+				},
+				{
 					ProductGroup = CAE273782CD562F200B744C0 /* Products */;
 					ProjectRef = CAE266DF2CD562F200B744C0 /* xcode.xcodeproj */;
+				},
+				{
+					ProductGroup = CA6D22842E48CB2800A3642D /* Products */;
+					ProjectRef = CA6D22832E48CB2800A3642D /* xcode.xcodeproj */;
 				},
 			);
 			projectRoot = "";
