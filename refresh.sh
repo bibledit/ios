@@ -113,7 +113,7 @@ echo Convert the file hierarchy in the webroot to a flat structure
 pushd $WEBROOT
 
 echo Creating array of directories in webroot
-directories=($(find . -type d))
+directories=($(find . -type d ! -path .))
 
 echo Creating array of files in webroot
 files=($(find . -type f))
