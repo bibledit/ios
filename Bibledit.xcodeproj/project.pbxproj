@@ -173,16 +173,20 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = CA58F7F52CD5471C002F2EA4 /* Products */;
-					ProjectRef = CA58F7F42CD5471B002F2EA4 /* xcode.xcodeproj */;
-				},
-				{
 					ProductGroup = CA58A9752CD53A64002F2EA4 /* Products */;
 					ProjectRef = CA58A9742CD53A64002F2EA4 /* xcode.xcodeproj */;
 				},
 				{
 					ProductGroup = CA7675ED2CD5669800C56F74 /* Products */;
 					ProjectRef = CA7675EC2CD5669800C56F74 /* xcode.xcodeproj */;
+				},
+				{
+					ProductGroup = CAECA9FD2CD67E7C00FFAC5B /* Products */;
+					ProjectRef = CAECA9FC2CD67E7C00FFAC5B /* xcode.xcodeproj */;
+				},
+				{
+					ProductGroup = CA58F7F52CD5471C002F2EA4 /* Products */;
+					ProjectRef = CA58F7F42CD5471B002F2EA4 /* xcode.xcodeproj */;
 				},
 				{
 					ProductGroup = CA6C16D92DCE2523000DDC0D /* Products */;
@@ -195,10 +199,6 @@
 				{
 					ProductGroup = CAE273782CD562F200B744C0 /* Products */;
 					ProjectRef = CAE266DF2CD562F200B744C0 /* xcode.xcodeproj */;
-				},
-				{
-					ProductGroup = CAECA9FD2CD67E7C00FFAC5B /* Products */;
-					ProjectRef = CAECA9FC2CD67E7C00FFAC5B /* xcode.xcodeproj */;
 				},
 			);
 			projectRoot = "";

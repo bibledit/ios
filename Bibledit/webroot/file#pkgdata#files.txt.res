@@ -58,16 +58,10 @@
 /collaboration/index.html
 /collaboration/link.html
 /collaboration/settings.html
-/coloris
-/coloris/coloris.css
-/coloris/coloris.js
-/coloris/coloris.min.css
-/coloris/coloris.min.js
-/coloris/examples.html
-/coloris/LICENSE
 /compare
 /compare/index.html
 /config
+/config/certificates.sh
 /config/googletranslate.txt
 /config/ldap.txt
 /config/userfacingurl.txt
@@ -224,7 +218,8 @@
 /dialog/books.html
 /dialog/color.html
 /dialog/entry.html
-/dialog/list.html
+/dialog/selectajax.js
+/dialog/selectform.js
 /dialog/text.html
 /dialog/upload.html
 /dialog/yes.html
@@ -272,6 +267,7 @@
 /fonts/Montserrat-SemiBold.ttf
 /fonts/SILEOT.ttf
 /fonts/SIL-Licenses.txt
+/generate
 /git
 /git/gitflag
 /gumbo
@@ -349,11 +345,6 @@
 /ldap
 /lexicon
 /library
-/livetest
-/livetest/initialize.sh
-/livetest/livetest.js
-/livetest/livetest.sh
-/livetest/paths.sh
 /locale
 /locale/af.po
 /locale/bibledit.pot
@@ -380,13 +371,12 @@
 /man
 /manage
 /manage/accounts.html
+/manage/bibles.html
 /manage/exports.html
-/manage/hyphenation.html
 /manage/index.html
 /manage/privileges.html
 /manage/privileges.js
 /manage/users.html
-/manage/users.js
 /manage/write.html
 /man/bibledit.1
 /mapping
@@ -580,9 +570,6 @@
 /resource/comparative9edit.html
 /resource/divider.html
 /resource/download.html
-/resource/image.html
-/resource/images.html
-/resource/img.html
 /resource/index.html
 /resource/index.js
 /resource/manage.html
@@ -623,6 +610,7 @@
 /sendreceive
 /sendreceive/index.html
 /sendreceive/index.js
+/server
 /session
 /session/login.html
 /session/login.js
@@ -746,9 +734,10 @@
 /stb/LICENSE
 /styles
 /styles/indexm.html
+/styles/new.html
 /styles/sheetm.html
-/styles/view2.html
-/styles/view2.js
+/styles/view.html
+/styles/view.js
 /sword
 /sword/dev.txt
 /sword/locales.d
@@ -847,6 +836,7 @@
 /system
 /system/googletranslate.html
 /system/index.html
+/system/index.js
 /tasks
 /tasks/holder
 /tbsx
@@ -861,6 +851,7 @@
 /tmp/holder
 /trash
 /trash/holder
+/unittest
 /unittests
 /unittests/scripts
 /unittests/scripts/editor1.py
@@ -1059,7 +1050,6 @@
 /unittests/tests/flate1.html
 /unittests/tests/flate2.html
 /unittests/tests/flate3.html
-/unittests/tests/Genesis-1-1-18.gif
 /unittests/tests/html-fixed-1-gumbo.html
 /unittests/tests/html-invalid-1.html
 /unittests/tests/http-post-content-1.txt
