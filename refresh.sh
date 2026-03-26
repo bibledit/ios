@@ -36,8 +36,11 @@ echo Run only one parallel task so the interface is more responsive
 echo Enable the single-tab browser
 ./configure --enable-ios
 make clean
-echo Use MbedTLS 3.x so remove version 2.x
-rm -rf mbedtls2
+echo Use slightly older MbedTLS 3.6
+rm -rf mbedtls
+mv mbedtls.old mbedtls
+rm -rf psa
+mv psa.old psa
 echo Remove all files except C and C++ source code
 find . -type f ! -name '*.h' ! -name '*.hpp' ! -name '*.c' ! -name '*.cpp' ! -name '*.cxx' -delete
 rm -f .DS_Store
