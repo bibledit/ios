@@ -311,6 +311,7 @@
 /html
 /i18n
 /i18n/i18n.sh
+/.idea
 /images
 /images/gitflag
 /images/index.html
@@ -378,6 +379,8 @@
 /mapping/Vulgate.txt
 /mbedtls
 /mbedtls/0readme.txt
+/mbedtls.old
+/mbedtls.old/0readme.txt
 /menu
 /microtar
 /microtar/LICENSE
@@ -475,6 +478,7 @@
 /paratext/index.html
 /personalize
 /personalize/index.html
+/personalize/index.js
 /pix
 /pix/android-chrome-192x192.png
 /pix/android-chrome-512x512.png
@@ -496,6 +500,7 @@
 /processes
 /processes/gitflag
 /psa
+/psa.old
 /public
 /public/comment.html
 /public/create.html
@@ -803,9 +808,6 @@
 /system/index.js
 /tasks
 /tasks/holder
-/tbsx
-/tbsx/example.txt
-/tbsx/specs.html
 /text
 /tidy
 /tidy/0readme.txt
@@ -888,6 +890,7 @@
 /unittests/tests/editone06verse4suffix.usfm
 /unittests/tests/editor.css
 /unittests/tests/editor_roundtrip_1.txt
+/unittests/tests/email_long_1.txt
 /unittests/tests/emails
 /unittests/tests/emails/blueball.png
 /unittests/tests/emails/email1.msg
@@ -1085,5 +1088,6 @@
 /webserver
 /workspace
 /workspace/index.html
+/workspace/index.js
 /workspace/organize.html
 /workspace/settings.html
