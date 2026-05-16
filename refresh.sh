@@ -21,7 +21,7 @@ WEBROOT=Bibledit/webroot
 
 echo Copying Bibledit kernel files from $KERNELSOURCE to $KERNELDEST
 mkdir -p $KERNELDEST
-rsync --archive --delete --exclude bridging_header.h --exclude cpp_file.* $KERNELSOURCE/ $KERNELDEST/
+rsync --archive --delete --exclude bridging_header.h --exclude cpp_file.* --exclude build --exclude cmake-build-debug --exclude .idea $KERNELSOURCE/ $KERNELDEST/
 
 
 # List distinct file suffixes:
@@ -70,7 +70,7 @@ popd
 
 echo Copying Bibledit kernel files from $KERNELSOURCE to $WEBROOT
 mkdir -p $WEBROOT
-rsync --archive --delete $KERNELSOURCE/  $WEBROOT/
+rsync --archive --delete --exclude build --exclude cmake-build-debug --exclude .idea $KERNELSOURCE/  $WEBROOT/
 
 
 echo Prepare and clean the Bibledit kernel webroot
